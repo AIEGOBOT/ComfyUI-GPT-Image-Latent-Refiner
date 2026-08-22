@@ -1,0 +1,10 @@
+.git/
+.github/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.log
