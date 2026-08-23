@@ -17,9 +17,9 @@
 
 | 프로필 | 상위 모델 | 라이선스 | 저장소 포함 여부 |
 |---|---|---|---|
-| Qwen Image | [Qwen/Qwen-Image](https://huggingface.co/Qwen/Qwen-Image) | Apache License 2.0 | 포함하지 않음 |
-| FLUX.2 | [FLUX.2 autoencoder](https://github.com/black-forest-labs/flux2#flux2-autoencoder) | Apache License 2.0 | 포함하지 않음 |
-| SDXL | [stabilityai/stable-diffusion-xl-base-1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) | CreativeML Open RAIL++-M | 포함하지 않음 |
+| Qwen Image | [Qwen Image VAE](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | Apache License 2.0 | 포함하지 않음 |
+| FLUX.2 | [FLUX.2 Small Decoder](https://huggingface.co/black-forest-labs/FLUX.2-small-decoder/tree/main) | Apache License 2.0 | 포함하지 않음 |
+| SDXL | [SDXL Base 1.0 VAE](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/tree/main/vae) | CreativeML Open RAIL++-M | 포함하지 않음 |
 
 위 라이선스는 각각의 제3자 구성요소에 적용됩니다. GPT Image Latent Refiner가
 독자적으로 작성한 코드와 residual 체크포인트에 적용되는 라이선스가 아닙니다.
