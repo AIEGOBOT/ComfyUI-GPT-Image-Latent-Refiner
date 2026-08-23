@@ -38,9 +38,9 @@ Each comparison places the unprocessed input on the **left** and the complete
 workflow output on the **right**. These are results from the full Refiner + SeedVR2
 workflow, not from the refiner node alone.
 
-The animated previews mimic an Image Comparer wipe: they hold on the input, reveal
-the processed result from left to right, and then hold on the final output. The
-original static left/right comparisons are also shown below each animation.
+The SDXL portrait and two cropped dossier details also include Image Comparer-style
+animations. Each GIF appears below its static comparison, holds on the input,
+reveals the processed result from left to right, and then holds on the final output.
 
 Common settings were `device=auto`, tiled VAE enabled, SeedVR2 7B FP16 with
 `ema_vae_fp16.safetensors`, bicubic target resizing, wavelet color correction, and
@@ -56,8 +56,6 @@ below.
 
 ### Photoreal portrait — SDXL
 
-[![Animated photoreal portrait before and after](assets/examples/example-01-photoreal-portrait-wipe.gif)](assets/examples/example-01-photoreal-portrait-wipe.gif)
-
 **Static side-by-side**
 
 [![Static photoreal portrait before and after](assets/examples/example-01-photoreal-portrait-compare.png)](assets/examples/example-01-photoreal-portrait-compare.png)
@@ -65,9 +63,11 @@ below.
 [Before](assets/examples/example-01-photoreal-portrait-before.jpg) ·
 [After](assets/examples/example-01-photoreal-portrait-after-sdxl.png)
 
-### Environment — Qwen
+**Animated wipe**
 
-[![Animated environment before and after](assets/examples/example-02-environment-wipe.gif)](assets/examples/example-02-environment-wipe.gif)
+[![Animated photoreal portrait before and after](assets/examples/example-01-photoreal-portrait-wipe.gif)](assets/examples/example-01-photoreal-portrait-wipe.gif)
+
+### Environment — Qwen
 
 **Static side-by-side**
 
@@ -78,8 +78,6 @@ below.
 
 ### Anime illustration — Qwen
 
-[![Animated anime illustration before and after](assets/examples/example-03-anime-wipe.gif)](assets/examples/example-03-anime-wipe.gif)
-
 **Static side-by-side**
 
 [![Static anime illustration before and after](assets/examples/example-03-anime-compare.png)](assets/examples/example-03-anime-compare.png)
@@ -89,14 +87,18 @@ below.
 
 ### Night rescue dossier — FLUX.2
 
-[![Animated night rescue dossier before and after](assets/examples/example-04-night-rescue-wipe.gif)](assets/examples/example-04-night-rescue-wipe.gif)
-
 **Static side-by-side**
 
 [![Static night rescue dossier before and after](assets/examples/example-04-night-rescue-compare.png)](assets/examples/example-04-night-rescue-compare.png)
 
 [Before](assets/examples/example-04-night-rescue-before.png) ·
 [After](assets/examples/example-04-night-rescue-after-flux2.png)
+
+**Cropped animated details**
+
+| Hands, equipment, and boots | Body detail below the face |
+|:---:|:---:|
+| [![Animated comparison of the dossier hand, equipment, and boot panels](assets/examples/example-04-night-rescue-hands-boots-wipe.gif)](assets/examples/example-04-night-rescue-hands-boots-wipe.gif) | [![Animated comparison of the dossier body below the face](assets/examples/example-04-night-rescue-body-wipe.gif)](assets/examples/example-04-night-rescue-body-wipe.gif) |
 
 The renamed before/after assets are byte-for-byte copies, so their original embedded
 metadata is unchanged. Each comparison PNG also carries the processed image's
