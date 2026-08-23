@@ -18,3 +18,5 @@ SDXL VAE profiles.
 
 Third-party VAE weights and the training dataset are not included in this
 repository. See THIRD_PARTY_NOTICES.md for their sources and license boundaries.
+
+Korean translation: NOTICE.ko.md

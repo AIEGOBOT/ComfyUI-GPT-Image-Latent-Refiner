@@ -1,5 +1,7 @@
 # ComfyUI GPT Image Latent Refiner
 
+**English** | [한국어](README.ko.md)
+
 `GPT Image Latent Refiner` is a ComfyUI post-processing node for reducing recurring
 dot noise, stippling, grime, and tiled micro-textures while retaining the original
 composition. It runs a compact residual network in one of three VAE latent spaces.
@@ -98,3 +100,9 @@ granted.
 The 75-pair training dataset, source images, third-party VAE weights, and the original
 GPT Image 2 Artifact Cleaner checkpoint are not distributed by this repository. See
 [NOTICE](NOTICE) for project attribution.
+
+## Documentation languages
+
+Public-facing documentation for this project is maintained in both English and
+Korean. When legal translations differ, the English legal files and the authoritative
+upstream license texts control.

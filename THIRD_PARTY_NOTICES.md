@@ -1,5 +1,7 @@
 # Third-party notices
 
+**English** | [한국어](THIRD_PARTY_NOTICES.ko.md)
+
 Third-party checkpoints and VAE weights are not bundled with this repository. They
 remain subject to their own licenses and must be obtained separately from their
 official sources.
