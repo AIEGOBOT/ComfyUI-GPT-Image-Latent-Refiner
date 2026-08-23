@@ -41,7 +41,8 @@ ComfyUI 네이티브 노드로 구성하고 Qwen Image, FLUX.2, SDXL VAE에 맞�
 전체 워크플로우의 결과입니다.
 
 움직이는 미리보기는 Image Comparer의 와이프 동작처럼 처리 전 화면을 잠시 보여준
-뒤 왼쪽부터 처리 후 결과를 공개하고, 마지막 최종 화면을 잠시 유지합니다.
+뒤 왼쪽부터 처리 후 결과를 공개하고, 마지막 최종 화면을 잠시 유지합니다. 기존의
+정적 좌우 비교 이미지도 각 GIF 아래에 함께 표시합니다.
 
 공통 설정은 `device=auto`, VAE 타일링 활성화, SeedVR2 7B FP16과
 `ema_vae_fp16.safetensors`, Bicubic 목표 크기 조정, Wavelet 색상 보정, CAS
@@ -58,33 +59,45 @@ ComfyUI 네이티브 노드로 구성하고 Qwen Image, FLUX.2, SDXL VAE에 맞�
 
 [![실사 인물 처리 전후 애니메이션](assets/examples/example-01-photoreal-portrait-wipe.gif)](assets/examples/example-01-photoreal-portrait-wipe.gif)
 
+**정적 좌우 비교**
+
+[![실사 인물 정적 좌우 비교](assets/examples/example-01-photoreal-portrait-compare.png)](assets/examples/example-01-photoreal-portrait-compare.png)
+
 [처리 전](assets/examples/example-01-photoreal-portrait-before.jpg) ·
-[처리 후](assets/examples/example-01-photoreal-portrait-after-sdxl.png) ·
-[정적 비교](assets/examples/example-01-photoreal-portrait-compare.png)
+[처리 후](assets/examples/example-01-photoreal-portrait-after-sdxl.png)
 
 ### 환경·건축 — Qwen
 
 [![환경 이미지 처리 전후 애니메이션](assets/examples/example-02-environment-wipe.gif)](assets/examples/example-02-environment-wipe.gif)
 
+**정적 좌우 비교**
+
+[![환경 이미지 정적 좌우 비교](assets/examples/example-02-environment-compare.png)](assets/examples/example-02-environment-compare.png)
+
 [처리 전](assets/examples/example-02-environment-before.png) ·
-[처리 후](assets/examples/example-02-environment-after-qwen.png) ·
-[정적 비교](assets/examples/example-02-environment-compare.png)
+[처리 후](assets/examples/example-02-environment-after-qwen.png)
 
 ### 애니메이션 일러스트 — Qwen
 
 [![애니메이션 일러스트 처리 전후 애니메이션](assets/examples/example-03-anime-wipe.gif)](assets/examples/example-03-anime-wipe.gif)
 
+**정적 좌우 비교**
+
+[![애니메이션 일러스트 정적 좌우 비교](assets/examples/example-03-anime-compare.png)](assets/examples/example-03-anime-compare.png)
+
 [처리 전](assets/examples/example-03-anime-before.png) ·
-[처리 후](assets/examples/example-03-anime-after-qwen.png) ·
-[정적 비교](assets/examples/example-03-anime-compare.png)
+[처리 후](assets/examples/example-03-anime-after-qwen.png)
 
 ### 야간 구조 도감 — FLUX.2
 
 [![야간 구조 도감 처리 전후 애니메이션](assets/examples/example-04-night-rescue-wipe.gif)](assets/examples/example-04-night-rescue-wipe.gif)
 
+**정적 좌우 비교**
+
+[![야간 구조 도감 정적 좌우 비교](assets/examples/example-04-night-rescue-compare.png)](assets/examples/example-04-night-rescue-compare.png)
+
 [처리 전](assets/examples/example-04-night-rescue-before.png) ·
-[처리 후](assets/examples/example-04-night-rescue-after-flux2.png) ·
-[정적 비교](assets/examples/example-04-night-rescue-compare.png)
+[처리 후](assets/examples/example-04-night-rescue-after-flux2.png)
 
 새 이름의 처리 전·후 파일은 원본을 바이트 단위로 그대로 복사했으므로 기존 내장
 메타데이터가 유지됩니다. 각 비교 PNG에도 처리 후 이미지의 ComfyUI `prompt`와
