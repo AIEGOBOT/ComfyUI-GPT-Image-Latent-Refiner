@@ -19,5 +19,7 @@ Latent Refiner의 residual 체크포인트는 별도로 수집한 아티팩트/�
 사용해 무작위 초기화 상태부터 따로 학습했습니다. 이 프로젝트는 ComfyUI 네이티브
 노드와 각각 별도로 학습한 Qwen Image, FLUX.2, SDXL VAE 프로필을 추가합니다.
 
-제3자 VAE 가중치와 학습 데이터셋은 이 저장소에 포함하지 않습니다. 출처와 라이선스
-범위는 [THIRD_PARTY_NOTICES.ko.md](THIRD_PARTY_NOTICES.ko.md)를 참고하세요.
+제3자 VAE 가중치와 전체 학습 데이터셋은 이 저장소에 포함하지 않습니다.
+`assets/examples` 아래에는 프로젝트 설명을 위한 공개용 전처리·후처리 이미지 4쌍만
+포함하며, 이는 75쌍 학습 데이터셋의 배포가 아닙니다. 모델 출처와 라이선스 범위는
+[THIRD_PARTY_NOTICES.ko.md](THIRD_PARTY_NOTICES.ko.md)를 참고하세요.

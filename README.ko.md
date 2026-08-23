@@ -34,6 +34,57 @@ ComfyUI 네이티브 노드로 구성하고 Qwen Image, FLUX.2, SDXL VAE에 맞�
 그대로 적용하고, `0.0`은 실제 우회 동작이며, `1.0`을 넘으면 학습된 residual
 보정량을 확대합니다.
 
+## 전처리·후처리 비교 예제
+
+각 비교 이미지의 **왼쪽**은 처리 전 입력이고 **오른쪽**은 전체 워크플로우를 거친
+최종 결과입니다. 아래 결과는 리파이너 노드 단독 결과가 아니라 Refiner + SeedVR2
+전체 워크플로우의 결과입니다.
+
+공통 설정은 `device=auto`, VAE 타일링 활성화, SeedVR2 7B FP16과
+`ema_vae_fp16.safetensors`, Bicubic 목표 크기 조정, Wavelet 색상 보정, CAS
+`0.35`입니다. 예제마다 달라지는 프로필과 해상도 설정은 다음과 같습니다.
+
+| 예제 | 리파이너 프로필 | Strength | Area 사전 축소 | 목표 장변 |
+|---|---:|---:|---:|---:|
+| 실사 인물 | `sdxl` | `1.0` | `0.5배` | `1920 px` |
+| 환경·건축 | `qwen` | `1.0` | `0.5배` | `1920 px` |
+| 애니메이션 일러스트 | `qwen` | `1.0` | `0.5배` | `1920 px` |
+| 야간 구조 도감 | `flux2` | `1.0` | `1.0배`(축소 없음) | `3840 px` |
+
+### 실사 인물 — SDXL
+
+[![실사 인물 처리 전후 비교](assets/examples/example-01-photoreal-portrait-compare.png)](assets/examples/example-01-photoreal-portrait-compare.png)
+
+[처리 전](assets/examples/example-01-photoreal-portrait-before.jpg) ·
+[처리 후](assets/examples/example-01-photoreal-portrait-after-sdxl.png)
+
+### 환경·건축 — Qwen
+
+[![환경 이미지 처리 전후 비교](assets/examples/example-02-environment-compare.png)](assets/examples/example-02-environment-compare.png)
+
+[처리 전](assets/examples/example-02-environment-before.png) ·
+[처리 후](assets/examples/example-02-environment-after-qwen.png)
+
+### 애니메이션 일러스트 — Qwen
+
+[![애니메이션 일러스트 처리 전후 비교](assets/examples/example-03-anime-compare.png)](assets/examples/example-03-anime-compare.png)
+
+[처리 전](assets/examples/example-03-anime-before.png) ·
+[처리 후](assets/examples/example-03-anime-after-qwen.png)
+
+### 야간 구조 도감 — FLUX.2
+
+[![야간 구조 도감 처리 전후 비교](assets/examples/example-04-night-rescue-compare.png)](assets/examples/example-04-night-rescue-compare.png)
+
+[처리 전](assets/examples/example-04-night-rescue-before.png) ·
+[처리 후](assets/examples/example-04-night-rescue-after-flux2.png)
+
+새 이름의 처리 전·후 파일은 원본을 바이트 단위로 그대로 복사했으므로 기존 내장
+메타데이터가 유지됩니다. 각 비교 PNG에도 처리 후 이미지의 ComfyUI `prompt`와
+`workflow` 필드 및 별도의 `comparison_manifest` 필드를 넣었습니다. 정확한 설정과
+해상도, SHA-256 해시는
+[assets/examples/metadata.json](assets/examples/metadata.json)에 기록했습니다.
+
 ## 로컬 설치
 
 이 저장소를 `ComfyUI/custom_nodes` 아래에 복제하거나 연결하고, ComfyUI의 Python
@@ -154,9 +205,9 @@ Hires Fix 자체가 더 나쁜 방식은 아니며 목적이 다릅니다. 아�
 
 ## 저장소 범위
 
-이 저장소에는 ComfyUI 실행 코드, 의존성 metadata와 이동 가능한 예제 워크플로우를
-포함합니다. 학습 코드, 데이터셋, 체크포인트, VAE 가중치, 생성 이미지와
-비공개 실험 기록은 포함하지 않습니다.
+이 저장소에는 ComfyUI 실행 코드, 의존성 metadata, 이동 가능한 예제 워크플로우와
+위의 공개용 전처리·후처리 예제 4쌍을 포함합니다. 학습 코드, 전체 학습 데이터셋,
+체크포인트, VAE 가중치, 그 밖의 생성 이미지와 비공개 실험 기록은 포함하지 않습니다.
 
 ## 제3자 모델
 

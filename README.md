@@ -32,6 +32,58 @@ The node exposes a `strength` control from `0.0` to `2.0`. A value of `1.0` is t
 trained correction, `0.0` is a true bypass, and values above `1.0` extrapolate the
 learned residual.
 
+## Before / after examples
+
+Each comparison places the unprocessed input on the **left** and the complete
+workflow output on the **right**. These are results from the full Refiner + SeedVR2
+workflow, not from the refiner node alone.
+
+Common settings were `device=auto`, tiled VAE enabled, SeedVR2 7B FP16 with
+`ema_vae_fp16.safetensors`, bicubic target resizing, wavelet color correction, and
+CAS `0.35`. The profile and resolution settings that differ by example are shown
+below.
+
+| Example | Refiner profile | Strength | Area pre-scale | Target long edge |
+|---|---:|---:|---:|---:|
+| Photoreal portrait | `sdxl` | `1.0` | `0.5x` | `1920 px` |
+| Environment | `qwen` | `1.0` | `0.5x` | `1920 px` |
+| Anime illustration | `qwen` | `1.0` | `0.5x` | `1920 px` |
+| Night rescue dossier | `flux2` | `1.0` | `1.0x` (no reduction) | `3840 px` |
+
+### Photoreal portrait — SDXL
+
+[![Photoreal portrait before and after](assets/examples/example-01-photoreal-portrait-compare.png)](assets/examples/example-01-photoreal-portrait-compare.png)
+
+[Before](assets/examples/example-01-photoreal-portrait-before.jpg) ·
+[After](assets/examples/example-01-photoreal-portrait-after-sdxl.png)
+
+### Environment — Qwen
+
+[![Environment before and after](assets/examples/example-02-environment-compare.png)](assets/examples/example-02-environment-compare.png)
+
+[Before](assets/examples/example-02-environment-before.png) ·
+[After](assets/examples/example-02-environment-after-qwen.png)
+
+### Anime illustration — Qwen
+
+[![Anime illustration before and after](assets/examples/example-03-anime-compare.png)](assets/examples/example-03-anime-compare.png)
+
+[Before](assets/examples/example-03-anime-before.png) ·
+[After](assets/examples/example-03-anime-after-qwen.png)
+
+### Night rescue dossier — FLUX.2
+
+[![Night rescue dossier before and after](assets/examples/example-04-night-rescue-compare.png)](assets/examples/example-04-night-rescue-compare.png)
+
+[Before](assets/examples/example-04-night-rescue-before.png) ·
+[After](assets/examples/example-04-night-rescue-after-flux2.png)
+
+The renamed before/after assets are byte-for-byte copies, so their original embedded
+metadata is unchanged. Each comparison PNG also carries the processed image's
+ComfyUI `prompt` and `workflow` fields plus a `comparison_manifest` field. Exact
+settings, dimensions, and SHA-256 hashes are recorded in
+[assets/examples/metadata.json](assets/examples/metadata.json).
+
 ## Local installation
 
 Place or link this repository under `ComfyUI/custom_nodes`, install the Python
@@ -155,8 +207,9 @@ from a conventional Hires Fix or latent upscale.
 
 ## Repository scope
 
-This repository contains only the ComfyUI runtime, dependency metadata, and
-portable example workflows. Training code, datasets, checkpoints, VAE weights,
+This repository contains the ComfyUI runtime, dependency metadata, portable example
+workflows, and the four selected public before/after documentation examples above.
+Training code, the complete training dataset, checkpoints, VAE weights, other
 generated images, and private experiment notes are intentionally excluded.
 
 ## Third-party models
