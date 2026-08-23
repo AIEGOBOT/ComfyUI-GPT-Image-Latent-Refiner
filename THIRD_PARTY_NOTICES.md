@@ -19,9 +19,9 @@ official sources.
 
 | Profile | Upstream model | License | Bundled here |
 |---|---|---|---|
-| Qwen Image | [Qwen/Qwen-Image](https://huggingface.co/Qwen/Qwen-Image) | Apache License 2.0 | No |
-| FLUX.2 | [FLUX.2 autoencoder](https://github.com/black-forest-labs/flux2#flux2-autoencoder) | Apache License 2.0 | No |
-| SDXL | [stabilityai/stable-diffusion-xl-base-1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) | CreativeML Open RAIL++-M | No |
+| Qwen Image | [Qwen Image VAE](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | Apache License 2.0 | No |
+| FLUX.2 | [FLUX.2 Small Decoder](https://huggingface.co/black-forest-labs/FLUX.2-small-decoder/tree/main) | Apache License 2.0 | No |
+| SDXL | [SDXL Base 1.0 VAE](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/tree/main/vae) | CreativeML Open RAIL++-M | No |
 
 The licenses above apply to the respective third-party components, not to the
 original code or residual checkpoints of GPT Image Latent Refiner.

@@ -70,7 +70,24 @@ The 3B and more aggressively quantized variants were more likely to expose or
 emphasize artifacts in these tests; this is a workflow-specific observation, not a
 universal ranking of SeedVR2 models.
 
-### 4. Color correction and CAS
+### 4. SeedVR2 VAE encode/decode and memory
+
+The example JSON loads `ema_vae_fp16.safetensors` and uses regular `VAEEncode` and
+`VAEDecode` nodes for the SeedVR2 stage. The default graph does not use tiled VAE
+nodes there.
+
+The refiner node's `tile_vae` switch affects only its internal Diffusers VAE. The
+later SeedVR2 VAE encode/decode is a separate stage and is not controlled by that
+switch. If the SeedVR2 VAE stage runs out of memory, replace the regular nodes with
+ComfyUI's tiled VAE encode and decode nodes. Tiling reduces memory use but can be
+slower and can rarely make tile boundaries visible.
+
+Judge standalone refiner memory and the combined 7B SeedVR2 workflow separately.
+The combined graph is strongly affected by target resolution, SeedVR2 model
+precision, offloading state, and VAE mode. Validate with a batch of one at a lower
+target resolution first.
+
+### 5. Color correction and CAS
 
 Wavelet color correction references the resized input to reduce color drift from
 the restoration pass. CAS then restores restrained local contrast at edges after

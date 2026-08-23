@@ -32,9 +32,38 @@ def _resolve_device(mode: str) -> torch.device:
     raise ValueError(f"Unsupported device mode: {mode}")
 
 
-def _autocast_context(device: torch.device):
-    if device.type == "cuda":
-        return torch.autocast(device_type="cuda", dtype=torch.bfloat16)
+def _select_inference_dtype(device: torch.device) -> torch.dtype:
+    if device.type != "cuda":
+        return torch.float32
+
+    try:
+        with torch.cuda.device(device):
+            capability = torch.cuda.get_device_capability()
+            bf16_checker = getattr(torch.cuda, "is_bf16_supported", None)
+            if bf16_checker is not None:
+                try:
+                    if bf16_checker(including_emulation=False):
+                        return torch.bfloat16
+                except TypeError:
+                    # Older PyTorch may count software emulation as BF16 support.
+                    if capability >= (8, 0) and bf16_checker():
+                        return torch.bfloat16
+
+            return torch.float16 if capability >= (5, 3) else torch.float32
+    except (
+        AssertionError,
+        AttributeError,
+        OSError,
+        RuntimeError,
+        TypeError,
+        ValueError,
+    ):
+        return torch.float32
+
+
+def _autocast_context(device: torch.device, dtype: torch.dtype):
+    if device.type == "cuda" and dtype in (torch.bfloat16, torch.float16):
+        return torch.autocast(device_type="cuda", dtype=dtype)
     return nullcontext()
 
 
@@ -86,12 +115,13 @@ def refine_images(
 
     profile = get_profile(profile_name)
     device = _resolve_device(device_mode)
+    inference_dtype = _select_inference_dtype(device)
     if device.type == "cuda":
         required = int(profile.estimated_vram_gib * 1024**3)
         model_management.free_memory(required, device)
 
     residual, adapter = _load_cached(profile)
-    vae_dtype = torch.bfloat16 if profile.name == "qwen" and device.type == "cuda" else torch.float32
+    vae_dtype = inference_dtype if profile.name == "qwen" else torch.float32
     residual = residual.to(device=device, dtype=torch.float32).train(False)
     adapter.vae = adapter.vae.to(device=device, dtype=vae_dtype).train(False)
     _configure_tiling(adapter, tile_vae)
@@ -106,7 +136,7 @@ def refine_images(
             source = source.mul(2.0).sub(1.0)
             padded, height, width = _pad_to_multiple(source)
             latent = adapter.encode(padded)
-            with _autocast_context(device):
+            with _autocast_context(device, inference_dtype):
                 refined = latent + float(strength) * residual(latent.float())
             decoded = adapter.decode(refined)
             decoded = decoded[:, :, :height, :width]
