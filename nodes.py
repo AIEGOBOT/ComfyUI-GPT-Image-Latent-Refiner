@@ -20,7 +20,8 @@ class GPTImageLatentRefiner(io.ComfyNode):
             description=(
                 "Reduces dot noise, stippling, grime, and repeating micro-textures with "
                 "an independently trained latent residual model. Qwen is the recommended "
-                "default; Flux2 preserves more source detail; SDXL is experimental."
+                "default; Flux2 preserves more source detail; SDXL changes details more "
+                "strongly but may work better for photorealistic portraits."
             ),
             category="GPT Image/refinement",
             inputs=[
@@ -31,7 +32,8 @@ class GPTImageLatentRefiner(io.ComfyNode):
                     default="qwen",
                     tooltip=(
                         "qwen: recommended balance; flux2: stronger source preservation; "
-                        "sdxl: experimental and more likely to reshape detail."
+                        "sdxl: stronger reconstruction drift, but may work better for "
+                        "photorealistic portraits."
                     ),
                 ),
                 io.Float.Input(

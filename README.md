@@ -26,7 +26,7 @@ Qwen Image, FLUX.2, and SDXL. The upstream source is distributed under its own
 |---|---|---|
 | `qwen` | Recommended default | Best observed cleanup/preservation balance |
 | `flux2` | Stable alternative | Preserves more source detail with milder cleanup |
-| `sdxl` | Experimental | Stronger reconstruction drift; use only after comparison |
+| `sdxl` | Portrait alternative | Stronger reconstruction drift, but may be more effective than Qwen or FLUX.2 on photorealistic portrait photos |
 
 The node exposes a `strength` control from `0.0` to `2.0`. A value of `1.0` is the
 trained correction, `0.0` is a true bypass, and values above `1.0` extrapolate the

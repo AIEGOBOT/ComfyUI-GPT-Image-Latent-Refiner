@@ -52,7 +52,7 @@ PROFILES: dict[str, Profile] = {
         name="sdxl",
         latent_channels=4,
         normalization="posterior_mode*scaling_factor",
-        recommendation="experimental",
+        recommendation="photorealistic portrait alternative",
         estimated_vram_gib=4.0,
     ),
 }
