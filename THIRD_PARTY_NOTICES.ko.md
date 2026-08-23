@@ -23,3 +23,11 @@
 
 위 라이선스는 각각의 제3자 구성요소에 적용됩니다. GPT Image Latent Refiner가
 독자적으로 작성한 코드와 residual 체크포인트에 적용되는 라이선스가 아닙니다.
+
+## 선택형 SeedVR2 예제
+
+저장소에 포함된 결합 워크플로우는 Apache License 2.0이 적용되는
+[ByteDance SeedVR2 프로젝트](https://github.com/ByteDance-Seed/SeedVR)와
+[Comfy-Org/SeedVR2](https://huggingface.co/Comfy-Org/SeedVR2)가 ComfyUI용으로
+배포한 가중치를 참조합니다. SeedVR2 코드와 가중치는 이 저장소에 포함하지 않으며
+각각의 라이선스와 이용 조건이 별도로 적용됩니다.

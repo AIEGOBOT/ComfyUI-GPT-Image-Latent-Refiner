@@ -71,10 +71,41 @@ and VAE files before inference. It will not silently combine incompatible assets
 Start with `qwen`, `strength=1.0`, `device=auto`, and `tile_vae=true`. Process one
 large image at a time on a 16 GB GPU.
 
+## Recommended SeedVR2 workflow
+
+The refiner can be used by itself, but its benefit was most noticeable in the
+author's tests when it was placed before SeedVR2. It first suppresses recurring
+dots and unstable micro-textures so that SeedVR2 is less likely to reconstruct or
+amplify them as image detail.
+
+The included
+[GPT Image Refiner + SeedVR2 workflow](example_workflows/GPT_Image_Refiner_SeedVR2.json)
+uses this sequence:
+
+```text
+Input -> GPT Image Latent Refiner -> 0.5x area downscale -> SeedVR2 restoration
+      -> wavelet color correction -> CAS -> final output
+```
+
+The example uses the `qwen` refiner profile and `seedvr2_7b_fp16.safetensors`.
+Based on the author's comparative testing:
+
+- **Recommended:** SeedVR2 7B FP16 for the best observed quality and artifact
+  suppression in this workflow.
+- **Low-VRAM alternative:** `seedvr2_7b_int8_convrot.safetensors`. It keeps the
+  7B architecture with lower memory use, but may lose quality versus FP16.
+- **Caution:** 3B or more aggressively quantized variants may reintroduce or
+  emphasize artifacts. This is an observed workflow-specific tendency, not a
+  universal result for every image.
+
+The example also requires ComfyUI's native SeedVR2 nodes, ComfyUI Essentials,
+ComfyUI-Easy-Use, and rgthree-comfy. Model weights and those optional node packs
+are not bundled with this repository.
+
 ## Repository scope
 
-This repository contains only the ComfyUI runtime, dependency metadata, and one
-portable example workflow. Training code, datasets, checkpoints, VAE weights,
+This repository contains only the ComfyUI runtime, dependency metadata, and
+portable example workflows. Training code, datasets, checkpoints, VAE weights,
 generated images, and private experiment notes are intentionally excluded.
 
 ## Third-party models

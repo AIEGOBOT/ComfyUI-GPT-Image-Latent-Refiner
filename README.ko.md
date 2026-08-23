@@ -73,10 +73,40 @@ ComfyUI/models/vae/GPT-Image-Latent-Refiner/sdxl/diffusion_pytorch_model.safeten
 처음에는 `qwen`, `strength=1.0`, `device=auto`, `tile_vae=true`로 시작하세요.
 16GB GPU에서는 큰 이미지를 한 번에 한 장씩 처리하는 것을 권장합니다.
 
+## 권장 SeedVR2 워크플로우
+
+리파이너를 단독으로 사용할 수도 있지만, 제작자 테스트에서는 SeedVR2 앞에 배치했을
+때 효과가 가장 뚜렷했습니다. 반복 점무늬와 불안정한 미세 질감을 먼저 정리해
+SeedVR2가 이를 이미지 디테일로 재구성하거나 확대할 가능성을 줄입니다.
+
+저장소에 포함된
+[GPT Image Refiner + SeedVR2 워크플로우](example_workflows/GPT_Image_Refiner_SeedVR2.json)는
+다음 순서로 처리합니다.
+
+```text
+입력 -> GPT Image Latent Refiner -> Area 0.5배 축소 -> SeedVR2 복원
+     -> Wavelet 색상 보정 -> CAS -> 최종 출력
+```
+
+예제는 리파이너 `qwen` 프로필과 `seedvr2_7b_fp16.safetensors`를 사용합니다.
+제작자의 비교 테스트를 기준으로 한 모델 선택 안내는 다음과 같습니다.
+
+- **권장:** 이 워크플로우에서 확인한 품질과 아티팩트 억제 효과가 가장 좋은
+  SeedVR2 7B FP16
+- **VRAM 부족 시 대안:** `seedvr2_7b_int8_convrot.safetensors`. 7B 구조를
+  유지하면서 메모리 사용량을 줄일 수 있지만 FP16보다 품질이 낮아질 수 있음
+- **주의:** 3B 또는 더 강하게 양자화된 모델은 아티팩트를 다시 드러내거나 강조할
+  수 있음. 이는 모든 이미지에 적용되는 절대 기준이 아니라 이 워크플로우에서 관찰한
+  경향임
+
+예제 실행에는 ComfyUI 네이티브 SeedVR2 노드와 ComfyUI Essentials,
+ComfyUI-Easy-Use, rgthree-comfy도 필요합니다. 모델 가중치와 선택 의존 노드 팩은
+이 저장소에 포함하지 않습니다.
+
 ## 저장소 범위
 
-이 저장소에는 ComfyUI 실행 코드, 의존성 metadata와 이동 가능한 예제 워크플로우
-하나만 포함합니다. 학습 코드, 데이터셋, 체크포인트, VAE 가중치, 생성 이미지와
+이 저장소에는 ComfyUI 실행 코드, 의존성 metadata와 이동 가능한 예제 워크플로우를
+포함합니다. 학습 코드, 데이터셋, 체크포인트, VAE 가중치, 생성 이미지와
 비공개 실험 기록은 포함하지 않습니다.
 
 ## 제3자 모델

@@ -25,3 +25,11 @@ official sources.
 
 The licenses above apply to the respective third-party components, not to the
 original code or residual checkpoints of GPT Image Latent Refiner.
+
+## Optional SeedVR2 example
+
+The included combined workflow references the
+[ByteDance SeedVR2 project](https://github.com/ByteDance-Seed/SeedVR), licensed
+under Apache License 2.0, and ComfyUI-packaged weights from
+[Comfy-Org/SeedVR2](https://huggingface.co/Comfy-Org/SeedVR2). SeedVR2 code and
+weights are not included in this repository and remain subject to their own terms.
