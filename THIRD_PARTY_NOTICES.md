@@ -23,4 +23,3 @@ official sources.
 
 The licenses above apply to the respective third-party components, not to the
 original code or residual checkpoints of GPT Image Latent Refiner.
-
