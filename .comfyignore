@@ -1,8 +1,16 @@
 .git/
 .github/
+tests/
+trainer/
 .pytest_cache/
 __pycache__/
 *.py[cod]
+data/
+datasets/
+runs/
+outputs/
+models/
+checkpoints/
 *.pt
 *.pth
 *.ckpt

@@ -1,0 +1,21 @@
+GPT Image Latent Refiner
+Copyright (c) 2026 AIEGOBOT
+
+This project adapts the latent-residual artifact-cleaning approach and compact
+residual-network design described and implemented by:
+
+  GPT Image 2 Artifact Cleaner
+  Copyright (c) 2026 Larryvrh
+  https://github.com/Larryvrh/gpt-image-2-artifact-cleaner
+  PolyForm Noncommercial License 1.0.0
+  https://polyformproject.org/licenses/noncommercial/1.0.0
+
+The original project's checkpoint is not included or redistributed. The residual
+checkpoints for GPT Image Latent Refiner were trained separately from random
+initialization on a self-curated dataset of 75 paired artifact/clean images. This
+project adds a native ComfyUI node and separately trained Qwen Image, FLUX.2, and
+SDXL VAE profiles.
+
+Third-party VAE weights and the training dataset are not included in this
+repository. See THIRD_PARTY_NOTICES.md for their sources and license boundaries.
+
