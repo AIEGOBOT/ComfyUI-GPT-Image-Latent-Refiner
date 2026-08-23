@@ -126,13 +126,16 @@ Hires Fix 자체가 더 나쁜 방식은 아니며 목적이 다릅니다. 아�
 
 ### 모델 다운로드
 
-| 파일 | 다운로드 | 설치 위치 |
+| 파일 | 출처·상태 | 설치 위치 |
 |---|---|---|
-| Qwen, FLUX.2, SDXL 리파이너 `model.pt` | 아직 공개하지 않았으며 별도 모델 저장소로 배포 예정 | `models/gpt_image_latent_refiner/<profile>/model.pt` |
+| Qwen, FLUX.2, SDXL 리파이너 `model.pt` | 이 프로젝트에서 학습을 완료했으며 코드 저장소와 분리 보관 | `models/gpt_image_latent_refiner/<profile>/model.pt` |
 | Qwen Image VAE | [공식 VAE 폴더](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | `models/vae/GPT-Image-Latent-Refiner/qwen/` |
 | SeedVR2 7B FP16 | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_fp16.safetensors) | `models/diffusion_models/` |
 | SeedVR2 7B INT8 ConvRot | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors) | `models/diffusion_models/` |
 | SeedVR2 VAE FP16 | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/vae/ema_vae_fp16.safetensors) | `models/vae/` |
+
+세 리파이너 체크포인트는 모두 학습을 완료해 프로젝트에서 사용 중입니다. 제작자
+환경에 모델이 없는 것이 아니라 코드 저장소에 가중치를 함께 넣지 않은 것입니다.
 
 예제는 리파이너 `qwen` 프로필과 SeedVR2 7B FP16을 사용합니다. 제작자의 비교
 테스트를 기준으로 한 모델 선택 안내는 다음과 같습니다.

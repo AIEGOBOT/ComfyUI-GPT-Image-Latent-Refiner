@@ -126,13 +126,17 @@ also uses:
 
 ### Model downloads
 
-| File | Download | Destination |
+| File | Source / status | Destination |
 |---|---|---|
-| Qwen, FLUX.2, and SDXL refiner `model.pt` files | Not yet public; planned for a separate model repository | `models/gpt_image_latent_refiner/<profile>/model.pt` |
+| Qwen, FLUX.2, and SDXL refiner `model.pt` files | Project-trained checkpoints stored separately from the code repository | `models/gpt_image_latent_refiner/<profile>/model.pt` |
 | Qwen Image VAE | [Official VAE folder](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | `models/vae/GPT-Image-Latent-Refiner/qwen/` |
 | SeedVR2 7B FP16 | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_fp16.safetensors) | `models/diffusion_models/` |
 | SeedVR2 7B INT8 ConvRot | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors) | `models/diffusion_models/` |
 | SeedVR2 VAE FP16 | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/vae/ema_vae_fp16.safetensors) | `models/vae/` |
+
+All three refiner checkpoints have been trained and are used by the project. They
+are not missing from the author's environment; they are simply not bundled in this
+code repository.
 
 The example uses the `qwen` refiner profile and SeedVR2 7B FP16. Based on the
 author's comparative testing:
