@@ -3,7 +3,19 @@
   "layout": "left=before,right=after",
   "metadata_policy": {
     "renamed_files": "Byte-for-byte copies of the supplied files; embedded metadata is unchanged.",
-    "comparison_files": "The processed PNG prompt and workflow fields are copied into each comparison PNG. comparison_manifest and Description fields are added."
+    "comparison_files": "The processed PNG prompt and workflow fields are copied into each comparison PNG. comparison_manifest and Description fields are added.",
+    "wipe_gifs": "Each GIF Comment field contains its processing manifest."
+  },
+  "gif_animation": {
+    "direction": "left-to-right",
+    "revealed_image": "after",
+    "loop": true,
+    "palette_colors": 160,
+    "frames": 25,
+    "before_hold_ms": 700,
+    "transition_frame_ms": 50,
+    "after_hold_ms": 1300,
+    "total_duration_ms": 3150
   },
   "common_processing": {
     "device": "auto",
@@ -23,15 +35,18 @@
       "before": "example-01-photoreal-portrait-before.jpg",
       "after": "example-01-photoreal-portrait-after-sdxl.png",
       "compare": "example-01-photoreal-portrait-compare.png",
+      "wipe_gif": "example-01-photoreal-portrait-wipe.gif",
       "profile": "sdxl",
       "strength": 1.0,
       "downscale": 0.5,
       "target_long_edge": 1920,
       "before_dimensions": [1672, 941],
       "after_dimensions": [1920, 1078],
+      "wipe_gif_dimensions": [960, 539],
       "before_sha256": "b16307713edcbc19b026da1fe2a53ab49bb03f119a15598908b957df5a2a6717",
       "after_sha256": "9b68b4367c16407cc8c26384e35718c02c188273fa411bf684cbc4dcdbbb9a6e",
-      "compare_sha256": "36502401d7f93223e91422bdcc283cdad599c24301276234e5e4f2202ed63eae"
+      "compare_sha256": "36502401d7f93223e91422bdcc283cdad599c24301276234e5e4f2202ed63eae",
+      "wipe_gif_sha256": "c20db1273b1a389c52e9687ac159fc60108687eac0f6afeaddb818e348926c1d"
     },
     {
       "id": "example-02",
@@ -39,15 +54,18 @@
       "before": "example-02-environment-before.png",
       "after": "example-02-environment-after-qwen.png",
       "compare": "example-02-environment-compare.png",
+      "wipe_gif": "example-02-environment-wipe.gif",
       "profile": "qwen",
       "strength": 1.0,
       "downscale": 0.5,
       "target_long_edge": 1920,
       "before_dimensions": [1536, 1024],
       "after_dimensions": [1920, 1280],
+      "wipe_gif_dimensions": [960, 640],
       "before_sha256": "801abf3c7a940cb568de781504ba754be739bf5705360a64ba95d5ea87986a77",
       "after_sha256": "81470b4911cc5baf1ffd3f60be08a6ea0ed7b3f3b648ab02027f983078caf62e",
-      "compare_sha256": "527ff47850ac52267c16cb02b0fc38ca38d943086c56919432f87c01465d4c0b"
+      "compare_sha256": "527ff47850ac52267c16cb02b0fc38ca38d943086c56919432f87c01465d4c0b",
+      "wipe_gif_sha256": "f283b72fd254a1439bc5562539d3e0ce5cf1f677a7d0ff378e268a15276e5df2"
     },
     {
       "id": "example-03",
@@ -55,15 +73,18 @@
       "before": "example-03-anime-before.png",
       "after": "example-03-anime-after-qwen.png",
       "compare": "example-03-anime-compare.png",
+      "wipe_gif": "example-03-anime-wipe.gif",
       "profile": "qwen",
       "strength": 1.0,
       "downscale": 0.5,
       "target_long_edge": 1920,
       "before_dimensions": [1122, 1402],
       "after_dimensions": [1536, 1920],
+      "wipe_gif_dimensions": [768, 960],
       "before_sha256": "806f387b6a6578f3073aac87fa47a828b3f4a6e2babc265434b6b25edd798be1",
       "after_sha256": "138c0c32006a7c5e98c147f0023154d5a8c255a8f26091cf465906a2cd11e33e",
-      "compare_sha256": "4d4dec78a3d10401102d1cab80226f4a553ad43ed2c117042658ede707fd0456"
+      "compare_sha256": "4d4dec78a3d10401102d1cab80226f4a553ad43ed2c117042658ede707fd0456",
+      "wipe_gif_sha256": "372db031afa4bddcd500572eb16b631e0518d1b4993c8fd73c8e71fac650f360"
     },
     {
       "id": "example-04",
@@ -71,15 +92,18 @@
       "before": "example-04-night-rescue-before.png",
       "after": "example-04-night-rescue-after-flux2.png",
       "compare": "example-04-night-rescue-compare.png",
+      "wipe_gif": "example-04-night-rescue-wipe.gif",
       "profile": "flux2",
       "strength": 1.0,
       "downscale": 1.0,
       "target_long_edge": 3840,
       "before_dimensions": [1774, 887],
       "after_dimensions": [3840, 1920],
+      "wipe_gif_dimensions": [960, 480],
       "before_sha256": "9903e7ccd6fa6d0fc7eaa9546868a8822d3fa8acd0b197bac6fa408661d210ec",
       "after_sha256": "5e3b8408aef0b8cb1533e3e8d0310a01e3b6d384c20b859506eba8e67ef92550",
-      "compare_sha256": "f69f84773380e3cb578ace624bc065e747d68aa126545f0dc61567fbd7dc9c31"
+      "compare_sha256": "f69f84773380e3cb578ace624bc065e747d68aa126545f0dc61567fbd7dc9c31",
+      "wipe_gif_sha256": "f00c3585de04d5627098fd69e8853dfa575d45ab64fe557c71c7e3dd770ba9a2"
     }
   ]
 }

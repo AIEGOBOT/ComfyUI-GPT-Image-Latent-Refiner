@@ -40,6 +40,9 @@ ComfyUI 네이티브 노드로 구성하고 Qwen Image, FLUX.2, SDXL VAE에 맞�
 최종 결과입니다. 아래 결과는 리파이너 노드 단독 결과가 아니라 Refiner + SeedVR2
 전체 워크플로우의 결과입니다.
 
+움직이는 미리보기는 Image Comparer의 와이프 동작처럼 처리 전 화면을 잠시 보여준
+뒤 왼쪽부터 처리 후 결과를 공개하고, 마지막 최종 화면을 잠시 유지합니다.
+
 공통 설정은 `device=auto`, VAE 타일링 활성화, SeedVR2 7B FP16과
 `ema_vae_fp16.safetensors`, Bicubic 목표 크기 조정, Wavelet 색상 보정, CAS
 `0.35`입니다. 예제마다 달라지는 프로필과 해상도 설정은 다음과 같습니다.
@@ -53,36 +56,40 @@ ComfyUI 네이티브 노드로 구성하고 Qwen Image, FLUX.2, SDXL VAE에 맞�
 
 ### 실사 인물 — SDXL
 
-[![실사 인물 처리 전후 비교](assets/examples/example-01-photoreal-portrait-compare.png)](assets/examples/example-01-photoreal-portrait-compare.png)
+[![실사 인물 처리 전후 애니메이션](assets/examples/example-01-photoreal-portrait-wipe.gif)](assets/examples/example-01-photoreal-portrait-wipe.gif)
 
 [처리 전](assets/examples/example-01-photoreal-portrait-before.jpg) ·
-[처리 후](assets/examples/example-01-photoreal-portrait-after-sdxl.png)
+[처리 후](assets/examples/example-01-photoreal-portrait-after-sdxl.png) ·
+[정적 비교](assets/examples/example-01-photoreal-portrait-compare.png)
 
 ### 환경·건축 — Qwen
 
-[![환경 이미지 처리 전후 비교](assets/examples/example-02-environment-compare.png)](assets/examples/example-02-environment-compare.png)
+[![환경 이미지 처리 전후 애니메이션](assets/examples/example-02-environment-wipe.gif)](assets/examples/example-02-environment-wipe.gif)
 
 [처리 전](assets/examples/example-02-environment-before.png) ·
-[처리 후](assets/examples/example-02-environment-after-qwen.png)
+[처리 후](assets/examples/example-02-environment-after-qwen.png) ·
+[정적 비교](assets/examples/example-02-environment-compare.png)
 
 ### 애니메이션 일러스트 — Qwen
 
-[![애니메이션 일러스트 처리 전후 비교](assets/examples/example-03-anime-compare.png)](assets/examples/example-03-anime-compare.png)
+[![애니메이션 일러스트 처리 전후 애니메이션](assets/examples/example-03-anime-wipe.gif)](assets/examples/example-03-anime-wipe.gif)
 
 [처리 전](assets/examples/example-03-anime-before.png) ·
-[처리 후](assets/examples/example-03-anime-after-qwen.png)
+[처리 후](assets/examples/example-03-anime-after-qwen.png) ·
+[정적 비교](assets/examples/example-03-anime-compare.png)
 
 ### 야간 구조 도감 — FLUX.2
 
-[![야간 구조 도감 처리 전후 비교](assets/examples/example-04-night-rescue-compare.png)](assets/examples/example-04-night-rescue-compare.png)
+[![야간 구조 도감 처리 전후 애니메이션](assets/examples/example-04-night-rescue-wipe.gif)](assets/examples/example-04-night-rescue-wipe.gif)
 
 [처리 전](assets/examples/example-04-night-rescue-before.png) ·
-[처리 후](assets/examples/example-04-night-rescue-after-flux2.png)
+[처리 후](assets/examples/example-04-night-rescue-after-flux2.png) ·
+[정적 비교](assets/examples/example-04-night-rescue-compare.png)
 
 새 이름의 처리 전·후 파일은 원본을 바이트 단위로 그대로 복사했으므로 기존 내장
 메타데이터가 유지됩니다. 각 비교 PNG에도 처리 후 이미지의 ComfyUI `prompt`와
 `workflow` 필드 및 별도의 `comparison_manifest` 필드를 넣었습니다. 정확한 설정과
-해상도, SHA-256 해시는
+GIF 애니메이션 값, 해상도, SHA-256 해시는
 [assets/examples/metadata.json](assets/examples/metadata.json)에 기록했습니다.
 
 ## 로컬 설치

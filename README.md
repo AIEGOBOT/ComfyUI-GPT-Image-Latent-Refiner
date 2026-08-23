@@ -38,6 +38,9 @@ Each comparison places the unprocessed input on the **left** and the complete
 workflow output on the **right**. These are results from the full Refiner + SeedVR2
 workflow, not from the refiner node alone.
 
+The animated previews mimic an Image Comparer wipe: they hold on the input, reveal
+the processed result from left to right, and then hold on the final output.
+
 Common settings were `device=auto`, tiled VAE enabled, SeedVR2 7B FP16 with
 `ema_vae_fp16.safetensors`, bicubic target resizing, wavelet color correction, and
 CAS `0.35`. The profile and resolution settings that differ by example are shown
@@ -52,36 +55,40 @@ below.
 
 ### Photoreal portrait — SDXL
 
-[![Photoreal portrait before and after](assets/examples/example-01-photoreal-portrait-compare.png)](assets/examples/example-01-photoreal-portrait-compare.png)
+[![Animated photoreal portrait before and after](assets/examples/example-01-photoreal-portrait-wipe.gif)](assets/examples/example-01-photoreal-portrait-wipe.gif)
 
 [Before](assets/examples/example-01-photoreal-portrait-before.jpg) ·
-[After](assets/examples/example-01-photoreal-portrait-after-sdxl.png)
+[After](assets/examples/example-01-photoreal-portrait-after-sdxl.png) ·
+[Static comparison](assets/examples/example-01-photoreal-portrait-compare.png)
 
 ### Environment — Qwen
 
-[![Environment before and after](assets/examples/example-02-environment-compare.png)](assets/examples/example-02-environment-compare.png)
+[![Animated environment before and after](assets/examples/example-02-environment-wipe.gif)](assets/examples/example-02-environment-wipe.gif)
 
 [Before](assets/examples/example-02-environment-before.png) ·
-[After](assets/examples/example-02-environment-after-qwen.png)
+[After](assets/examples/example-02-environment-after-qwen.png) ·
+[Static comparison](assets/examples/example-02-environment-compare.png)
 
 ### Anime illustration — Qwen
 
-[![Anime illustration before and after](assets/examples/example-03-anime-compare.png)](assets/examples/example-03-anime-compare.png)
+[![Animated anime illustration before and after](assets/examples/example-03-anime-wipe.gif)](assets/examples/example-03-anime-wipe.gif)
 
 [Before](assets/examples/example-03-anime-before.png) ·
-[After](assets/examples/example-03-anime-after-qwen.png)
+[After](assets/examples/example-03-anime-after-qwen.png) ·
+[Static comparison](assets/examples/example-03-anime-compare.png)
 
 ### Night rescue dossier — FLUX.2
 
-[![Night rescue dossier before and after](assets/examples/example-04-night-rescue-compare.png)](assets/examples/example-04-night-rescue-compare.png)
+[![Animated night rescue dossier before and after](assets/examples/example-04-night-rescue-wipe.gif)](assets/examples/example-04-night-rescue-wipe.gif)
 
 [Before](assets/examples/example-04-night-rescue-before.png) ·
-[After](assets/examples/example-04-night-rescue-after-flux2.png)
+[After](assets/examples/example-04-night-rescue-after-flux2.png) ·
+[Static comparison](assets/examples/example-04-night-rescue-compare.png)
 
 The renamed before/after assets are byte-for-byte copies, so their original embedded
 metadata is unchanged. Each comparison PNG also carries the processed image's
 ComfyUI `prompt` and `workflow` fields plus a `comparison_manifest` field. Exact
-settings, dimensions, and SHA-256 hashes are recorded in
+settings, GIF animation parameters, dimensions, and SHA-256 hashes are recorded in
 [assets/examples/metadata.json](assets/examples/metadata.json).
 
 ## Local installation
