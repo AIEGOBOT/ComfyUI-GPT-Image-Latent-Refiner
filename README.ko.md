@@ -97,6 +97,20 @@ Bicubic 노드가 목표 픽셀 해상도를 먼저 정하고, SeedVR2가 그 �
 글자도 사라질 수 있으므로 원본 보존이 더 중요하면 배율을 `1.0`으로 바꾸거나 해당
 노드를 우회하세요.
 
+### Hires Fix·latent upscale과의 차이
+
+| | 일반적인 Hires Fix / latent upscale | 이 SeedVR2 워크플로우 |
+|---|---|---|
+| 주목적 | 더 큰 해상도에서 diffusion 생성을 이어감 | 반복 아티팩트를 제거한 뒤 목표 크기에서 복원함 |
+| 처리 방식 | 이미지 또는 latent를 키운 뒤 두 번째 diffusion sampling 수행 | Latent 정제, 선택형 축소, 목표 크기 조정, 한 단계 SeedVR2 복원 |
+| 재구성 강도가 약할 때 | 기존 아티팩트와 흐림이 남은 채 커질 수 있음 | 복원 전에 리파이너가 문제 질감을 먼저 줄임 |
+| 재구성 강도가 강할 때 | 얼굴, 정체성, 글자, 구도 또는 형태가 달라질 수 있음 | SeedVR2도 디테일을 바꿀 수 있지만 복원 단계로 조건화해 사용함 |
+| 적합한 목적 | 프롬프트 기반 디테일 확장과 생성의 연장 | 기존 이미지의 아티팩트 정리와 재구성 |
+
+Hires Fix 자체가 더 나쁜 방식은 아니며 목적이 다릅니다. 아티팩트 정리에서는 denoise가
+약하면 문제 질감까지 남고, 강하면 이미지가 지나치게 다시 구성될 수 있습니다. 이
+워크플로우는 정리와 재구성을 분리해 두 역할을 더 쉽게 제어합니다.
+
 ### 커스텀 노드 의존성
 
 이 예제의 SeedVR2 부분은
@@ -114,7 +128,7 @@ Bicubic 노드가 목표 픽셀 해상도를 먼저 정하고, SeedVR2가 그 �
 
 | 파일 | 다운로드 | 설치 위치 |
 |---|---|---|
-| Qwen 리파이너 `model.pt` | 별도 배포 예정이며 아직 공개 다운로드 없음 | `models/gpt_image_latent_refiner/qwen/model.pt` |
+| Qwen, FLUX.2, SDXL 리파이너 `model.pt` | 아직 공개하지 않았으며 별도 모델 저장소로 배포 예정 | `models/gpt_image_latent_refiner/<profile>/model.pt` |
 | Qwen Image VAE | [공식 VAE 폴더](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | `models/vae/GPT-Image-Latent-Refiner/qwen/` |
 | SeedVR2 7B FP16 | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_fp16.safetensors) | `models/diffusion_models/` |
 | SeedVR2 7B INT8 ConvRot | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors) | `models/diffusion_models/` |

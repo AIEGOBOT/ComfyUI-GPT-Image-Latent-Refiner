@@ -96,6 +96,21 @@ chance of dot noise and grid-like texture being preserved as detail, but it can
 also remove real fine detail or small text. Set the scale to `1.0` or bypass that
 node when source preservation matters more.
 
+### Difference from Hires Fix / latent upscale
+
+| | Conventional Hires Fix / latent upscale | This SeedVR2 workflow |
+|---|---|---|
+| Main purpose | Continue diffusion generation at a larger size | Remove recurring artifacts, then restore at the target size |
+| Process | Resize a pixel image or latent, then run a second diffusion sampling pass | Latent cleanup, optional downsample, target resize, then one-step SeedVR2 restoration |
+| With weak reconstruction | Existing artifacts and softness can remain and become larger | The refiner reduces targeted texture before restoration |
+| With strong reconstruction | Face, identity, text, composition, or shapes may change | SeedVR2 can still reinterpret detail, but it is conditioned as a restoration stage |
+| Best suited for | Prompt-driven detail expansion and continued generation | Cleanup and reconstruction of an existing image |
+
+Hires Fix is not inherently worse; it is designed for a different goal. For this
+artifact-cleaning task, its denoise tradeoff can either preserve unwanted texture
+or recompose too much of the image. This workflow separates cleanup from
+reconstruction so those roles are easier to control.
+
 ### Custom-node dependencies
 
 SeedVR2 itself uses the
@@ -113,7 +128,7 @@ also uses:
 
 | File | Download | Destination |
 |---|---|---|
-| Qwen refiner `model.pt` | Distributed separately; public download not yet available | `models/gpt_image_latent_refiner/qwen/model.pt` |
+| Qwen, FLUX.2, and SDXL refiner `model.pt` files | Not yet public; planned for a separate model repository | `models/gpt_image_latent_refiner/<profile>/model.pt` |
 | Qwen Image VAE | [Official VAE folder](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | `models/vae/GPT-Image-Latent-Refiner/qwen/` |
 | SeedVR2 7B FP16 | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_fp16.safetensors) | `models/diffusion_models/` |
 | SeedVR2 7B INT8 ConvRot | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors) | `models/diffusion_models/` |
