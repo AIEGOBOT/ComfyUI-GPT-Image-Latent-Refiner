@@ -1187,11 +1187,11 @@
       "type": "Note",
       "pos": [
         -10.53325017224242,
-        -695.253473867557
+        -855.253473867557
       ],
       "size": [
         1050,
-        820
+        980
       ],
       "flags": {},
       "order": 3,
@@ -1206,7 +1206,7 @@
         }
       },
       "widgets_values": [
-        "GPT Image Latent Refiner + SeedVR2 복원 워크플로우\nGPT IMAGE LATENT REFINER + SEEDVR2 RESTORATION WORKFLOW\n\n핵심 목적 / PURPOSE\n- 리파이너가 반복 점무늬와 미세 아티팩트를 먼저 정리해 SeedVR2가 이를 디테일로 확대하는 현상을 줄입니다.\n- The refiner cleans recurring dots and micro-artifacts first, reducing the chance that SeedVR2 amplifies them as detail.\n- 리파이너는 단독 사용보다 SeedVR2와 결합했을 때 효과가 가장 뚜렷합니다.\n- The refiner's benefit is most noticeable when paired with SeedVR2.\n\n처리 순서 / PIPELINE\n1. 입력 → GPT Image Latent Refiner\n   qwen / strength 1.0 / device auto / tiled VAE on\n2. Area 방식으로 0.5× 축소\n   불안정한 미세 질감을 줄인 뒤 SeedVR2가 디테일을 다시 구성하도록 합니다.\n3. 최장변 1920px, bicubic 조정 → SeedVR2 전처리\n4. SeedVR2 복원\n   seed 4105349922 / 1 step / CFG 1 / Euler + simple / denoise 1\n5. Wavelet 색상 보정 → CAS 0.35 → 저장\n\nSEEDVR2 모델 선택 / MODEL SELECTION\n- 권장: seedvr2_7b_fp16.safetensors\n  이 워크플로우에서 품질과 아티팩트 억제 효과가 가장 좋았던 모델입니다.\n- VRAM 부족 시 대안: seedvr2_7b_int8_convrot.safetensors\n  7B 구조를 유지하면서 메모리 사용량을 줄일 수 있지만 FP16보다 품질이 낮아질 수 있습니다.\n- 3B 또는 더 낮은 정밀도·강한 양자화 모델은 오히려 아티팩트를 다시 드러내거나 강조할 수 있습니다.\n  이는 제작자의 비교 테스트에서 관찰한 결과이며 모든 이미지에 동일하게 적용되는 절대 기준은 아닙니다.\n- Recommended: 7B FP16 for the best tested quality and artifact suppression.\n- Low-VRAM alternative: 7B INT8 ConvRot. It uses less memory but may lose quality versus FP16.\n- 3B or more aggressively quantized variants may reintroduce or emphasize artifacts in this workflow.\n  This is based on the author's comparative testing and is not a universal result.\n\nVAE 및 후처리 / VAE & FINISHING\n- VAE: ema_vae_fp16.safetensors\n- SeedVR2 VAE Encode/Decode: 일반 방식 / non-tiled\n- Wavelet: 입력 색감 참조 / input-color reference\n- CAS: 최종 선명도 보정 / final sharpness adjustment\n\n비교 노드 / COMPARISONS\n- ORIGINAL vs LATENT REFINED\n- ORIGINAL vs FINAL OUTPUT\n- BEFORE CAS vs AFTER CAS\n- LATENT REFINED vs FINAL OUTPUT\n\n주의 / NOTES\n- 이 메모는 현재 노드 설정값을 설명합니다. 값을 바꾸면 메모도 함께 갱신하세요.\n- This note documents the current node values. Update it whenever the workflow settings change.\n- CAS amount 0도 완전한 bypass가 아닙니다. 끄려면 노드를 우회하거나 음소거하세요.\n- CAS amount 0 is not a true bypass. Bypass or mute the node to disable it completely."
+        "GPT Image Latent Refiner + SeedVR2 복원 워크플로우\nGPT IMAGE LATENT REFINER + SEEDVR2 RESTORATION WORKFLOW\n\n핵심 목적 / PURPOSE\n- 리파이너가 반복 점무늬와 미세 아티팩트를 먼저 정리해 SeedVR2가 이를 디테일로 확대하는 현상을 줄입니다.\n- The refiner cleans recurring dots and micro-artifacts first, reducing the chance that SeedVR2 amplifies them as detail.\n- 리파이너는 단독 사용보다 SeedVR2와 결합했을 때 효과가 가장 뚜렷합니다.\n- The refiner's benefit is most noticeable when paired with SeedVR2.\n\n처리 순서 / PIPELINE\n1. 입력 → GPT Image Latent Refiner\n   qwen / strength 1.0 / device auto / tiled VAE on\n2. Area 방식으로 0.5× 축소 (선택형 / OPTIONAL)\n   불안정한 고주파 질감을 평균화한 뒤 SeedVR2가 디테일을 다시 구성하도록 합니다.\n   작은 글자·선화·실제 미세 디테일 보존이 중요하면 1.0으로 바꾸거나 우회하세요.\n   Use 1.0 or bypass this step when exact fine detail matters more than artifact suppression.\n   이 단계 자체보다 다음 노드의 실제 SeedVR2 처리 해상도가 VRAM에 더 큰 영향을 줍니다.\n3. 최장변 1920px, bicubic 조정 → SeedVR2 전처리\n4. SeedVR2 복원\n   seed 4105349922 / 1 step / CFG 1 / Euler + simple / denoise 1\n5. Wavelet 색상 보정 → CAS 0.35 → 저장\n\nSEEDVR2 모델 선택 / MODEL SELECTION\n- 권장: seedvr2_7b_fp16.safetensors\n  이 워크플로우에서 품질과 아티팩트 억제 효과가 가장 좋았던 모델입니다.\n- VRAM 부족 시 대안: seedvr2_7b_int8_convrot.safetensors\n  7B 구조를 유지하면서 메모리 사용량을 줄일 수 있지만 FP16보다 품질이 낮아질 수 있습니다.\n- 3B 또는 더 낮은 정밀도·강한 양자화 모델은 오히려 아티팩트를 다시 드러내거나 강조할 수 있습니다.\n  이는 제작자의 비교 테스트에서 관찰한 결과이며 모든 이미지에 동일하게 적용되는 절대 기준은 아닙니다.\n- Recommended: 7B FP16 for the best tested quality and artifact suppression.\n- Low-VRAM alternative: 7B INT8 ConvRot. It uses less memory but may lose quality versus FP16.\n- 3B or more aggressively quantized variants may reintroduce or emphasize artifacts in this workflow.\n  This is based on the author's comparative testing and is not a universal result.\n\nVAE 및 후처리 / VAE & FINISHING\n- VAE: ema_vae_fp16.safetensors\n- SeedVR2 VAE Encode/Decode: 일반 방식 / non-tiled\n- Wavelet: 입력 색감 참조 / input-color reference\n- CAS: 최종 선명도 보정 / final sharpness adjustment\n\n비교 노드 / COMPARISONS\n- ORIGINAL vs LATENT REFINED\n- ORIGINAL vs FINAL OUTPUT\n- BEFORE CAS vs AFTER CAS\n- LATENT REFINED vs FINAL OUTPUT\n\n주의 / NOTES\n- 일반 Hires Fix는 두 번째 diffusion sampling이라 denoise가 낮으면 아티팩트가 남고 높으면 구도·인물이 달라질 수 있습니다.\n- SeedVR2도 생성형 복원이므로 불분명한 디테일을 새로 만들거나 과도하게 선명하게 만들 수 있습니다.\n- 이 메모는 현재 노드 설정값을 설명합니다. 값을 바꾸면 메모도 함께 갱신하세요.\n- This note documents the current node values. Update it whenever the workflow settings change.\n- CAS amount 0도 완전한 bypass가 아닙니다. 끄려면 노드를 우회하거나 음소거하세요.\n- CAS amount 0 is not a true bypass. Bypass or mute the node to disable it completely."
       ],
       "color": "#432",
       "bgcolor": "#653",
@@ -1469,9 +1469,9 @@
       "title": "워크플로우 안내 / WORKFLOW GUIDE",
       "bounding": [
         -40,
-        -760,
+        -920,
         1130,
-        920
+        1080
       ],
       "color": "#3f668f",
       "flags": {}

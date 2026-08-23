@@ -87,8 +87,40 @@ Input -> GPT Image Latent Refiner -> 0.5x area downscale -> SeedVR2 restoration
       -> wavelet color correction -> CAS -> final output
 ```
 
-The example uses the `qwen` refiner profile and `seedvr2_7b_fp16.safetensors`.
-Based on the author's comparative testing:
+The bicubic node sets the target pixel dimensions; SeedVR2 then reconstructs and
+restores the resized image at that target size.
+
+The `0.5x` downscale is intentional but optional. Area downsampling averages fragile
+high-frequency patterns before SeedVR2 rebuilds the image. This can reduce the
+chance of dot noise and grid-like texture being preserved as detail, but it can
+also remove real fine detail or small text. Set the scale to `1.0` or bypass that
+node when source preservation matters more.
+
+### Custom-node dependencies
+
+SeedVR2 itself uses the
+[native ComfyUI nodes](https://docs.comfy.org/tutorials/utility/seedvr2) in this
+example. Update ComfyUI if those nodes are missing. The exact distributed graph
+also uses:
+
+| Node pack | Nodes used | Purpose |
+|---|---|---|
+| [ComfyUI Essentials](https://github.com/cubiq/ComfyUI_essentials) | `ImageCASharpening+` | Final CAS sharpening |
+| [ComfyUI-Easy-Use](https://github.com/yolain/ComfyUI-Easy-Use) | `easy cleanGpuUsed`, `easy clearCacheAll` | GPU-memory and cache cleanup between heavy stages |
+| [rgthree-comfy](https://github.com/rgthree/rgthree-comfy) | `Image Comparer (rgthree)` | Interactive comparisons; optional if comparison nodes are removed |
+
+### Model downloads
+
+| File | Download | Destination |
+|---|---|---|
+| Qwen refiner `model.pt` | Distributed separately; public download not yet available | `models/gpt_image_latent_refiner/qwen/model.pt` |
+| Qwen Image VAE | [Official VAE folder](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | `models/vae/GPT-Image-Latent-Refiner/qwen/` |
+| SeedVR2 7B FP16 | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_fp16.safetensors) | `models/diffusion_models/` |
+| SeedVR2 7B INT8 ConvRot | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors) | `models/diffusion_models/` |
+| SeedVR2 VAE FP16 | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/vae/ema_vae_fp16.safetensors) | `models/vae/` |
+
+The example uses the `qwen` refiner profile and SeedVR2 7B FP16. Based on the
+author's comparative testing:
 
 - **Recommended:** SeedVR2 7B FP16 for the best observed quality and artifact
   suppression in this workflow.
@@ -98,9 +130,9 @@ Based on the author's comparative testing:
   emphasize artifacts. This is an observed workflow-specific tendency, not a
   universal result for every image.
 
-The example also requires ComfyUI's native SeedVR2 nodes, ComfyUI Essentials,
-ComfyUI-Easy-Use, and rgthree-comfy. Model weights and those optional node packs
-are not bundled with this repository.
+See the [full SeedVR2 workflow guide](docs/SEEDVR2_WORKFLOW.md) for the role of each
+stage, when to skip the `0.5x` downscale, and how this restoration pipeline differs
+from a conventional Hires Fix or latent upscale.
 
 ## Repository scope
 

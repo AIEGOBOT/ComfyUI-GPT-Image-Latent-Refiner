@@ -88,8 +88,40 @@ SeedVR2가 이를 이미지 디테일로 재구성하거나 확대할 가능성�
      -> Wavelet 색상 보정 -> CAS -> 최종 출력
 ```
 
-예제는 리파이너 `qwen` 프로필과 `seedvr2_7b_fp16.safetensors`를 사용합니다.
-제작자의 비교 테스트를 기준으로 한 모델 선택 안내는 다음과 같습니다.
+Bicubic 노드가 목표 픽셀 해상도를 먼저 정하고, SeedVR2가 그 크기에서 이미지를
+재구성하고 복원합니다.
+
+`0.5배` 축소는 의도적으로 넣은 단계지만 필수는 아닙니다. Area 축소가 불안정한
+고주파 패턴을 평균화한 뒤 SeedVR2가 이미지를 다시 구성하므로 점 노이즈나 격자
+질감이 디테일로 보존될 가능성을 줄일 수 있습니다. 반대로 실제 미세 디테일이나 작은
+글자도 사라질 수 있으므로 원본 보존이 더 중요하면 배율을 `1.0`으로 바꾸거나 해당
+노드를 우회하세요.
+
+### 커스텀 노드 의존성
+
+이 예제의 SeedVR2 부분은
+[ComfyUI 네이티브 노드](https://docs.comfy.org/tutorials/utility/seedvr2)를
+사용합니다. 해당 노드가 보이지 않으면 ComfyUI를 업데이트하세요. 배포된 그래프에는
+다음 노드 팩도 사용됩니다.
+
+| 노드 팩 | 사용 노드 | 용도 |
+|---|---|---|
+| [ComfyUI Essentials](https://github.com/cubiq/ComfyUI_essentials) | `ImageCASharpening+` | 마지막 CAS 선명도 보정 |
+| [ComfyUI-Easy-Use](https://github.com/yolain/ComfyUI-Easy-Use) | `easy cleanGpuUsed`, `easy clearCacheAll` | 무거운 단계 사이 GPU 메모리·캐시 정리 |
+| [rgthree-comfy](https://github.com/rgthree/rgthree-comfy) | `Image Comparer (rgthree)` | 대화형 결과 비교; 비교 노드를 제거하면 생략 가능 |
+
+### 모델 다운로드
+
+| 파일 | 다운로드 | 설치 위치 |
+|---|---|---|
+| Qwen 리파이너 `model.pt` | 별도 배포 예정이며 아직 공개 다운로드 없음 | `models/gpt_image_latent_refiner/qwen/model.pt` |
+| Qwen Image VAE | [공식 VAE 폴더](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | `models/vae/GPT-Image-Latent-Refiner/qwen/` |
+| SeedVR2 7B FP16 | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_fp16.safetensors) | `models/diffusion_models/` |
+| SeedVR2 7B INT8 ConvRot | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors) | `models/diffusion_models/` |
+| SeedVR2 VAE FP16 | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/vae/ema_vae_fp16.safetensors) | `models/vae/` |
+
+예제는 리파이너 `qwen` 프로필과 SeedVR2 7B FP16을 사용합니다. 제작자의 비교
+테스트를 기준으로 한 모델 선택 안내는 다음과 같습니다.
 
 - **권장:** 이 워크플로우에서 확인한 품질과 아티팩트 억제 효과가 가장 좋은
   SeedVR2 7B FP16
@@ -99,9 +131,9 @@ SeedVR2가 이를 이미지 디테일로 재구성하거나 확대할 가능성�
   수 있음. 이는 모든 이미지에 적용되는 절대 기준이 아니라 이 워크플로우에서 관찰한
   경향임
 
-예제 실행에는 ComfyUI 네이티브 SeedVR2 노드와 ComfyUI Essentials,
-ComfyUI-Easy-Use, rgthree-comfy도 필요합니다. 모델 가중치와 선택 의존 노드 팩은
-이 저장소에 포함하지 않습니다.
+[SeedVR2 워크플로우 상세 설명](docs/SEEDVR2_WORKFLOW.ko.md)에는 각 단계의 역할,
+`0.5배` 축소를 생략할 조건과 일반적인 Hires Fix·latent upscale 방식과의 차이를
+정리했습니다.
 
 ## 저장소 범위
 
