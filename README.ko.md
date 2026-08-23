@@ -116,14 +116,10 @@ GIF 애니메이션 값, 해상도, SHA-256 해시는
 & '<ComfyUI>\venv\Scripts\python.exe' -m pip install -r requirements.txt
 ```
 
-이 프로젝트는 체크포인트와 VAE 가중치를 저장소에 포함하지 않습니다. 파일을 다음
-경로에 설치해야 합니다.
+이 프로젝트에서 학습한 리파이너 체크포인트 3개는 저장소에 포함되어 자동으로
+인식됩니다. 제3자 VAE 가중치는 포함하지 않으므로 다음 경로에 설치해야 합니다.
 
 ```text
-ComfyUI/models/gpt_image_latent_refiner/qwen/model.pt
-ComfyUI/models/gpt_image_latent_refiner/flux2/model.pt
-ComfyUI/models/gpt_image_latent_refiner/sdxl/model.pt
-
 ComfyUI/models/vae/GPT-Image-Latent-Refiner/qwen/config.json
 ComfyUI/models/vae/GPT-Image-Latent-Refiner/qwen/diffusion_pytorch_model.safetensors
 ComfyUI/models/vae/GPT-Image-Latent-Refiner/flux2/config.json
@@ -131,6 +127,11 @@ ComfyUI/models/vae/GPT-Image-Latent-Refiner/flux2/diffusion_pytorch_model.safete
 ComfyUI/models/vae/GPT-Image-Latent-Refiner/sdxl/config.json
 ComfyUI/models/vae/GPT-Image-Latent-Refiner/sdxl/diffusion_pytorch_model.safetensors
 ```
+
+번들 체크포인트를 교체하려면 호환되는 `model.pt`를
+`ComfyUI/models/gpt_image_latent_refiner/<profile>/model.pt`에 넣습니다. 외부
+체크포인트가 번들 파일보다 우선합니다. 파일 크기와 SHA-256은
+[models/README.ko.md](models/README.ko.md)에서 확인할 수 있습니다.
 
 노드는 선택한 프로필, latent channel 수, 체크포인트 metadata와 VAE 파일이 서로
 맞는지 확인합니다. 호환되지 않는 파일을 조용히 섞어서 실행하지 않습니다.
@@ -201,14 +202,14 @@ Hires Fix 자체가 더 나쁜 방식은 아니며 목적이 다릅니다. 아�
 
 | 파일 | 출처·상태 | 설치 위치 |
 |---|---|---|
-| Qwen, FLUX.2, SDXL 리파이너 `model.pt` | 이 프로젝트에서 학습을 완료했으며 코드 저장소와 분리 보관 | `models/gpt_image_latent_refiner/<profile>/model.pt` |
+| Qwen, FLUX.2, SDXL 리파이너 `model.pt` | 저장소에 포함된 프로젝트 학습 체크포인트; 자동 로드 | 이 저장소의 `models/gpt_image_latent_refiner/<profile>/model.pt` |
 | Qwen Image VAE | [공식 VAE 폴더](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | `models/vae/GPT-Image-Latent-Refiner/qwen/` |
 | SeedVR2 7B FP16 | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_fp16.safetensors) | `models/diffusion_models/` |
 | SeedVR2 7B INT8 ConvRot | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors) | `models/diffusion_models/` |
 | SeedVR2 VAE FP16 | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/vae/ema_vae_fp16.safetensors) | `models/vae/` |
 
-세 리파이너 체크포인트는 모두 학습을 완료해 프로젝트에서 사용 중입니다. 제작자
-환경에 모델이 없는 것이 아니라 코드 저장소에 가중치를 함께 넣지 않은 것입니다.
+세 리파이너 체크포인트는 EMA residual 가중치와 체크포인트 metadata만 담은 추론용
+배포본으로 포함됩니다. 노드 실행에 필요하지 않은 학습 optimizer 상태는 제외했습니다.
 
 예제는 리파이너 `qwen` 프로필과 SeedVR2 7B FP16을 사용합니다. 제작자의 비교
 테스트를 기준으로 한 모델 선택 안내는 다음과 같습니다.
@@ -227,9 +228,10 @@ Hires Fix 자체가 더 나쁜 방식은 아니며 목적이 다릅니다. 아�
 
 ## 저장소 범위
 
-이 저장소에는 ComfyUI 실행 코드, 의존성 metadata, 이동 가능한 예제 워크플로우와
-위의 공개용 전처리·후처리 예제 4쌍을 포함합니다. 학습 코드, 전체 학습 데이터셋,
-체크포인트, VAE 가중치, 그 밖의 생성 이미지와 비공개 실험 기록은 포함하지 않습니다.
+이 저장소에는 ComfyUI 실행 코드, 프로젝트에서 학습한 추론용 체크포인트 3개,
+의존성 metadata, 이동 가능한 예제 워크플로우와 위의 공개용 전처리·후처리 예제
+4쌍을 포함합니다. 학습 코드, 전체 학습 데이터셋, 제3자 VAE 가중치, 그 밖의 생성
+이미지와 비공개 실험 기록은 포함하지 않습니다.
 
 ## 제3자 모델
 

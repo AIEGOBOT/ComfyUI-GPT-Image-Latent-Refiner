@@ -9,9 +9,15 @@ data/
 datasets/
 runs/
 outputs/
-models/
+models/*
+!models/README.md
+!models/README.ko.md
+!models/SHA256SUMS
+!models/gpt_image_latent_refiner/
+!models/gpt_image_latent_refiner/**
 checkpoints/
 *.pt
+!models/gpt_image_latent_refiner/*/model.pt
 *.pth
 *.ckpt
 *.safetensors

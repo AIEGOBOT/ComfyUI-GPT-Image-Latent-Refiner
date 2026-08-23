@@ -115,14 +115,11 @@ dependencies into ComfyUI's environment, and restart ComfyUI.
 & '<ComfyUI>\venv\Scripts\python.exe' -m pip install -r requirements.txt
 ```
 
-The project intentionally does not bundle checkpoints or VAE weights. Install the
-files under the following paths:
+The three project-trained refiner checkpoints are bundled with this repository and
+are detected automatically. Third-party VAE weights are not bundled; install them
+under the following paths:
 
 ```text
-ComfyUI/models/gpt_image_latent_refiner/qwen/model.pt
-ComfyUI/models/gpt_image_latent_refiner/flux2/model.pt
-ComfyUI/models/gpt_image_latent_refiner/sdxl/model.pt
-
 ComfyUI/models/vae/GPT-Image-Latent-Refiner/qwen/config.json
 ComfyUI/models/vae/GPT-Image-Latent-Refiner/qwen/diffusion_pytorch_model.safetensors
 ComfyUI/models/vae/GPT-Image-Latent-Refiner/flux2/config.json
@@ -130,6 +127,11 @@ ComfyUI/models/vae/GPT-Image-Latent-Refiner/flux2/diffusion_pytorch_model.safete
 ComfyUI/models/vae/GPT-Image-Latent-Refiner/sdxl/config.json
 ComfyUI/models/vae/GPT-Image-Latent-Refiner/sdxl/diffusion_pytorch_model.safetensors
 ```
+
+To override a bundled checkpoint, place another compatible `model.pt` at
+`ComfyUI/models/gpt_image_latent_refiner/<profile>/model.pt`. External checkpoints
+take priority over bundled files. See [models/README.md](models/README.md) for sizes
+and SHA-256 checksums.
 
 The node validates the selected profile, latent channel count, checkpoint metadata,
 and VAE files before inference. It will not silently combine incompatible assets.
@@ -202,15 +204,15 @@ also uses:
 
 | File | Source / status | Destination |
 |---|---|---|
-| Qwen, FLUX.2, and SDXL refiner `model.pt` files | Project-trained checkpoints stored separately from the code repository | `models/gpt_image_latent_refiner/<profile>/model.pt` |
+| Qwen, FLUX.2, and SDXL refiner `model.pt` files | Bundled project-trained checkpoints; loaded automatically | `models/gpt_image_latent_refiner/<profile>/model.pt` in this repository |
 | Qwen Image VAE | [Official VAE folder](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | `models/vae/GPT-Image-Latent-Refiner/qwen/` |
 | SeedVR2 7B FP16 | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_fp16.safetensors) | `models/diffusion_models/` |
 | SeedVR2 7B INT8 ConvRot | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors) | `models/diffusion_models/` |
 | SeedVR2 VAE FP16 | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/vae/ema_vae_fp16.safetensors) | `models/vae/` |
 
-All three refiner checkpoints have been trained and are used by the project. They
-are not missing from the author's environment; they are simply not bundled in this
-code repository.
+All three refiner checkpoints are included as inference-only releases containing
+the EMA residual weights and checkpoint metadata. Training optimizer state is not
+needed by the node and is not included.
 
 The example uses the `qwen` refiner profile and SeedVR2 7B FP16. Based on the
 author's comparative testing:
@@ -229,10 +231,11 @@ from a conventional Hires Fix or latent upscale.
 
 ## Repository scope
 
-This repository contains the ComfyUI runtime, dependency metadata, portable example
-workflows, and the four selected public before/after documentation examples above.
-Training code, the complete training dataset, checkpoints, VAE weights, other
-generated images, and private experiment notes are intentionally excluded.
+This repository contains the ComfyUI runtime, three project-trained inference
+checkpoints, dependency metadata, portable example workflows, and the four selected
+public before/after documentation examples above. Training code, the complete
+training dataset, third-party VAE weights, other generated images, and private
+experiment notes are intentionally excluded.
 
 ## Third-party models
 

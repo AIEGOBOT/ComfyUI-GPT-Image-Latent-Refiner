@@ -114,7 +114,7 @@ The exact example also uses these external packs:
 
 | Model | Link | Destination |
 |---|---|---|
-| Qwen refiner checkpoint | Project-trained checkpoint stored separately from the code repository | `ComfyUI/models/gpt_image_latent_refiner/qwen/model.pt` |
+| Qwen refiner checkpoint | Bundled with this repository and loaded automatically | `models/gpt_image_latent_refiner/qwen/model.pt` in this repository |
 | Qwen Image VAE | [Official files](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | `ComfyUI/models/vae/GPT-Image-Latent-Refiner/qwen/` |
 | SeedVR2 7B FP16 | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_fp16.safetensors) | `ComfyUI/models/diffusion_models/` |
 | SeedVR2 7B INT8 ConvRot | [Download](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors) | `ComfyUI/models/diffusion_models/` |
@@ -123,9 +123,10 @@ The exact example also uses these external packs:
 The Qwen VAE destination must contain both `config.json` and
 `diffusion_pytorch_model.safetensors`.
 
-The Qwen, FLUX.2, and SDXL refiner checkpoints have all been trained. Their absence
-from the GitHub repository means only that the weight files are stored separately,
-not that the models do not exist.
+The Qwen, FLUX.2, and SDXL refiner checkpoints are bundled as inference-only files.
+An external compatible checkpoint at
+`ComfyUI/models/gpt_image_latent_refiner/<profile>/model.pt` overrides its bundled
+counterpart.
 
 ## Limitations
 

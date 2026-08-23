@@ -14,6 +14,7 @@ from .model import ResidualLatentNet
 
 MODEL_DIRECTORY = "gpt_image_latent_refiner"
 VAE_DIRECTORY = "GPT-Image-Latent-Refiner"
+BUNDLED_MODEL_ROOT = Path(__file__).resolve().parents[1] / "models" / MODEL_DIRECTORY
 
 
 @dataclass(frozen=True)
@@ -26,7 +27,10 @@ class Profile:
 
     @property
     def checkpoint_path(self) -> Path:
-        return Path(folder_paths.models_dir) / MODEL_DIRECTORY / self.name / "model.pt"
+        external_path = Path(folder_paths.models_dir) / MODEL_DIRECTORY / self.name / "model.pt"
+        if external_path.is_file():
+            return external_path
+        return BUNDLED_MODEL_ROOT / self.name / "model.pt"
 
     @property
     def vae_path(self) -> Path:

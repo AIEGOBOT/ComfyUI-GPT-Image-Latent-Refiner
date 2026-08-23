@@ -110,7 +110,7 @@ Hires Fix 자체가 열등한 방식은 아닙니다. 해결하려는 문제가 
 
 | 모델 | 링크 | 설치 위치 |
 |---|---|---|
-| Qwen 리파이너 체크포인트 | 이 프로젝트에서 학습을 완료했으며 코드 저장소와 분리 보관 | `ComfyUI/models/gpt_image_latent_refiner/qwen/model.pt` |
+| Qwen 리파이너 체크포인트 | 저장소에 포함되어 자동으로 로드됨 | 이 저장소의 `models/gpt_image_latent_refiner/qwen/model.pt` |
 | Qwen Image VAE | [공식 파일](https://huggingface.co/Qwen/Qwen-Image/tree/main/vae) | `ComfyUI/models/vae/GPT-Image-Latent-Refiner/qwen/` |
 | SeedVR2 7B FP16 | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_fp16.safetensors) | `ComfyUI/models/diffusion_models/` |
 | SeedVR2 7B INT8 ConvRot | [다운로드](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors) | `ComfyUI/models/diffusion_models/` |
@@ -119,9 +119,9 @@ Hires Fix 자체가 열등한 방식은 아닙니다. 해결하려는 문제가 
 Qwen VAE 설치 폴더에는 `config.json`과
 `diffusion_pytorch_model.safetensors`가 모두 있어야 합니다.
 
-Qwen, FLUX.2, SDXL 리파이너 체크포인트는 모두 학습 완료된 상태입니다. GitHub
-저장소에 없다는 것은 가중치 파일을 코드와 분리 보관한다는 뜻이며 모델 자체가 없다는
-뜻이 아닙니다.
+Qwen, FLUX.2, SDXL 리파이너 체크포인트는 추론용 파일로 저장소에 포함됩니다.
+`ComfyUI/models/gpt_image_latent_refiner/<profile>/model.pt`에 호환되는 외부
+체크포인트를 설치하면 해당 파일이 번들 체크포인트보다 우선합니다.
 
 ## 한계와 주의사항
 
