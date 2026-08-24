@@ -1,0 +1,194 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12"]
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch
+          python -m pip install tomli typing_extensions
+
+      - name: Validate Python syntax
+        run: |
+          python -m compileall -q \
+            __init__.py \
+            nodes.py \
+            gpt_image_latent_refiner \
+            tests
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Validate metadata, assets, and bundled checkpoints
+        run: |
+          python - <<'PY'
+          import hashlib
+          import pathlib
+          import re
+          import struct
+
+          import torch
+
+          try:
+              import tomllib
+          except ModuleNotFoundError:
+              import tomli as tomllib
+
+          root = pathlib.Path(".")
+          metadata = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
+          assert metadata["project"]["name"] == "gpt-image-latent-refiner"
+          assert re.fullmatch(r"\d+\.\d+\.\d+", metadata["project"]["version"])
+          assert metadata["tool"]["comfy"]["PublisherId"] == "aiegobot"
+          assert metadata["tool"]["comfy"]["DisplayName"] == "GPT Image Latent Refiner"
+
+          required = [
+              "README.md",
+              "README.ko.md",
+              "LICENSE",
+              "__init__.py",
+              "nodes.py",
+              "requirements.txt",
+              "pyproject.toml",
+              "assets/registry-banner.png",
+              "assets/registry-icon.png",
+              "example_workflows/GPT_Image_Latent_Refiner.json",
+              "example_workflows/GPT_Image_Refiner_SeedVR2.json",
+              "models/SHA256SUMS",
+          ]
+          for relative in required:
+              path = root / relative
+              assert path.is_file() and path.stat().st_size > 0, relative
+
+          def png_size(path: pathlib.Path) -> tuple[int, int]:
+              with path.open("rb") as handle:
+                  assert handle.read(8) == b"\x89PNG\r\n\x1a\n"
+                  length = struct.unpack(">I", handle.read(4))[0]
+                  assert handle.read(4) == b"IHDR" and length == 13
+                  return struct.unpack(">II", handle.read(8))
+
+          assert png_size(root / "assets" / "registry-banner.png") == (1400, 600)
+          assert png_size(root / "assets" / "registry-icon.png") == (400, 400)
+
+          expected_profiles = {
+              "qwen": 16,
+              "flux2": 32,
+              "sdxl": 4,
+          }
+          expected_hashes = {}
+          for line in (root / "models" / "SHA256SUMS").read_text(encoding="utf-8").splitlines():
+              digest, relative = line.split(maxsplit=1)
+              expected_hashes[relative] = digest
+
+          for profile, channels in expected_profiles.items():
+              relative = f"gpt_image_latent_refiner/{profile}/model.pt"
+              checkpoint_path = root / "models" / relative
+              assert checkpoint_path.is_file(), relative
+              digest = hashlib.sha256(checkpoint_path.read_bytes()).hexdigest()
+              assert digest == expected_hashes[relative], relative
+
+              checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=True)
+              assert checkpoint["meta"]["architecture"] == "ResidualLatentNet-v1"
+              assert int(checkpoint["meta"]["latent_channels"]) == channels
+              assert isinstance(checkpoint["R_ema"], dict) and checkpoint["R_ema"]
+
+          for workflow_path in (root / "example_workflows").glob("*.json"):
+              text = workflow_path.read_text(encoding="utf-8")
+              assert "D:\\" not in text and "C:\\" not in text and "/home/" not in text
+
+          print("repository-ok")
+          PY
+
+  registry-package:
+    name: Registry package
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Comfy CLI
+        run: python -m pip install comfy-cli==1.17.0
+
+      - name: Validate Registry metadata
+        run: comfy node validate
+
+      - name: Build Registry package
+        run: comfy node pack
+
+      - name: Inspect Registry package contents
+        run: |
+          python - <<'PY'
+          import pathlib
+          import zipfile
+
+          archive = pathlib.Path("node.zip")
+          assert archive.is_file() and archive.stat().st_size > 0
+
+          with zipfile.ZipFile(archive) as package:
+              names = set(package.namelist())
+
+          required = {
+              "__init__.py",
+              "nodes.py",
+              "pyproject.toml",
+              "README.md",
+              "README.ko.md",
+              "assets/registry-banner.png",
+              "assets/registry-icon.png",
+              "models/gpt_image_latent_refiner/qwen/model.pt",
+              "models/gpt_image_latent_refiner/flux2/model.pt",
+              "models/gpt_image_latent_refiner/sdxl/model.pt",
+          }
+          assert required <= names, sorted(required - names)
+
+          forbidden_prefixes = (
+              ".git/",
+              ".github/",
+              "tests/",
+              "trainer/",
+              "assets/examples/",
+              "__pycache__/",
+          )
+          assert not any(name.startswith(forbidden_prefixes) for name in names)
+          assert not any(name.endswith((".env", ".pyc")) for name in names)
+          print(f"registry-package-ok: {len(names)} files")
+          PY
