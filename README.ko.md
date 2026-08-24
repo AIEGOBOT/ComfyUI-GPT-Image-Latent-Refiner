@@ -177,8 +177,6 @@ SeedVR2 7B FP16은 리파이너보다 훨씬 무거우며 목표 해상도와 �
 SDXL 실사 인물과 도감의 크롭 디테일 두 곳에는 Image Comparer 방식의 움직이는
 비교도 제공합니다. 각 GIF는 정적 비교 이미지 아래에 배치되며 처리 전 화면을 잠시
 보여준 뒤 왼쪽부터 처리 후 결과를 공개하고, 마지막 최종 화면을 잠시 유지합니다.
-SDXL 예제에는 Reddit 등에서 고화질로 볼 수 있도록 처리 전후 원본 이미지에서 직접
-만든 전체 해상도 H.264 MP4도 함께 제공합니다.
 
 공통 설정은 리파이너 `device=auto`, 리파이너 `tile_vae=true`, SeedVR2 7B FP16과
 `ema_vae_fp16.safetensors`, 일반 `VAEEncode`·`VAEDecode`, Bicubic 목표 크기 조정,
@@ -204,8 +202,6 @@ Wavelet 색상 보정, CAS `0.35`입니다. 예제마다 달라지는 프로필�
 **움직이는 좌우 비교**
 
 [![실사 인물 처리 전후 애니메이션](assets/examples/example-01-photoreal-portrait-wipe.gif)](assets/examples/example-01-photoreal-portrait-wipe.gif)
-
-[고화질 1920×1078 MP4](assets/examples/example-01-photoreal-portrait-wipe-hq.mp4)
 
 ### 환경·건축 — Qwen
 
