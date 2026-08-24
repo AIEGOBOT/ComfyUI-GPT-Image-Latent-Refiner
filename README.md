@@ -6,6 +6,14 @@
 
 **English** | [한국어](README.ko.md)
 
+> ### Preservation-first SeedVR2 upscaling
+>
+> Unlike a conventional Hires Fix that runs another diffusion sampling pass, this
+> workflow upscales through SeedVR2 restoration. It is designed to rebuild detail at
+> the target resolution while preserving the source composition, identity, and shapes
+> as much as possible. SeedVR2 can still reinterpret fine detail, so compare important
+> images before and after.
+
 `GPT Image Latent Refiner` is a ComfyUI post-processing node—not an image
 generator—for reducing recurring dot noise, stippling, grime, and tiled
 micro-textures in GPT Image-family outputs. It requires no OpenAI API key and runs
