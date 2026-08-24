@@ -24,6 +24,7 @@ checkpoints/
 *.ckpt
 *.safetensors
 *.onnx
+/node.zip
 
 ComfyUI_*.png
 *.log

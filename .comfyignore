@@ -2,6 +2,7 @@
 .github/
 tests/
 trainer/
+assets/examples/
 .pytest_cache/
 __pycache__/
 *.py[cod]
