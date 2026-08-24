@@ -35,7 +35,16 @@ The node exposes a `strength` control from `0.0` to `2.0`. A value of `1.0` is t
 trained correction, `0.0` is a true bypass, and values above `1.0` extrapolate the
 learned residual.
 
-## Windows installation
+## Install with ComfyUI Manager
+
+Open **ComfyUI Manager**, search for **GPT Image Latent Refiner**, and select
+**Install**. Restart ComfyUI after installation.
+
+The Manager package includes the Qwen, FLUX.2, and SDXL refiner checkpoints. The
+third-party VAEs are not bundled, so download them separately using the paths in
+[Required VAEs and paths](#required-vaes-and-paths).
+
+## Manual Windows installation
 
 Restart ComfyUI after installation. The following commands are for PowerShell.
 

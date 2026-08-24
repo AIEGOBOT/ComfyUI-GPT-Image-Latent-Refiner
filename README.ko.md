@@ -32,7 +32,16 @@
 그대로 적용하고, `0.0`은 실제 우회 동작이며, `1.0`을 넘으면 학습된 residual
 보정량을 확대합니다.
 
-## Windows 설치
+## ComfyUI Manager로 설치
+
+**ComfyUI Manager**를 열고 **GPT Image Latent Refiner**를 검색한 뒤
+**Install**을 선택합니다. 설치가 끝나면 ComfyUI를 재시작합니다.
+
+Manager 패키지에는 Qwen, FLUX.2, SDXL 리파이너 체크포인트가 포함됩니다. 제3자
+VAE는 포함되지 않으므로 [필수 VAE와 설치 경로](#필수-vae와-설치-경로)에 따라
+별도로 내려받아야 합니다.
+
+## Windows 수동 설치
 
 설치가 끝나면 ComfyUI를 다시 시작하세요. 아래 명령은 PowerShell 기준입니다.
 

@@ -1,10 +1,14 @@
 [project]
-name = "comfyui-gpt-image-latent-refiner"
+name = "gpt-image-latent-refiner"
 version = "0.1.0"
 description = "ComfyUI latent-space post-processing for recurring GPT Image texture artifacts"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
 authors = [{ name = "AIEGOBOT" }]
+classifiers = [
+  "Operating System :: OS Independent",
+  "Environment :: GPU :: NVIDIA CUDA",
+]
 dependencies = [
   "diffusers>=0.39.0,<0.40.0",
   "safetensors>=0.4.0",
@@ -12,8 +16,9 @@ dependencies = [
 
 [project.urls]
 Repository = "https://github.com/AIEGOBOT/ComfyUI-GPT-Image-Latent-Refiner"
+"Bug Tracker" = "https://github.com/AIEGOBOT/ComfyUI-GPT-Image-Latent-Refiner/issues"
 
 [tool.comfy]
-PublisherId = "AIEGOBOT"
+PublisherId = "aiegobot"
 DisplayName = "GPT Image Latent Refiner"
 requires-comfyui = ">=0.33.1"
