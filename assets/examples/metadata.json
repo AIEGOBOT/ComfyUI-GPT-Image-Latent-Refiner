@@ -4,8 +4,7 @@
   "metadata_policy": {
     "renamed_files": "Byte-for-byte copies of the supplied files; embedded metadata is unchanged.",
     "comparison_files": "The processed PNG prompt and workflow fields are copied into each comparison PNG. comparison_manifest and Description fields are added.",
-    "wipe_gifs": "Each GIF Comment field contains its source, crop (when applicable), encoding, and animation manifest.",
-    "wipe_mp4": "The high-quality MP4 is rendered directly from the original before/after files rather than transcoded from the GIF; its container metadata records the profile and processing summary."
+    "wipe_gifs": "Each GIF Comment field contains its source, crop (when applicable), encoding, and animation manifest."
   },
   "gif_animation": {
     "direction": "left-to-right",
@@ -29,21 +28,6 @@
       }
     }
   },
-  "mp4_animation": {
-    "direction": "left-to-right",
-    "revealed_image": "after",
-    "source": "original before/after images",
-    "codec": "H.264 High Profile",
-    "pixel_format": "yuv420p",
-    "color": "BT.709 limited range",
-    "audio": false,
-    "frame_rate": 30,
-    "duration_seconds": 6.4,
-    "before_hold_seconds": 1.2,
-    "transition_seconds": 3.0,
-    "after_hold_seconds": 2.2,
-    "dimensions": [1920, 1078]
-  },
   "common_processing": {
     "device": "auto",
     "tile_vae": true,
@@ -63,7 +47,6 @@
       "after": "example-01-photoreal-portrait-after-sdxl.png",
       "compare": "example-01-photoreal-portrait-compare.png",
       "wipe_gif": "example-01-photoreal-portrait-wipe.gif",
-      "wipe_mp4": "example-01-photoreal-portrait-wipe-hq.mp4",
       "profile": "sdxl",
       "strength": 1.0,
       "downscale": 0.5,
@@ -71,13 +54,10 @@
       "before_dimensions": [1672, 941],
       "after_dimensions": [1920, 1078],
       "wipe_gif_dimensions": [960, 539],
-      "wipe_mp4_dimensions": [1920, 1078],
-      "wipe_mp4_duration_seconds": 6.4,
       "before_sha256": "b16307713edcbc19b026da1fe2a53ab49bb03f119a15598908b957df5a2a6717",
       "after_sha256": "9b68b4367c16407cc8c26384e35718c02c188273fa411bf684cbc4dcdbbb9a6e",
       "compare_sha256": "36502401d7f93223e91422bdcc283cdad599c24301276234e5e4f2202ed63eae",
-      "wipe_gif_sha256": "c20db1273b1a389c52e9687ac159fc60108687eac0f6afeaddb818e348926c1d",
-      "wipe_mp4_sha256": "5a09cc47812f70fe54a8e5784f55617892105ec8d4ae1311e485129947e8f1c8"
+      "wipe_gif_sha256": "c20db1273b1a389c52e9687ac159fc60108687eac0f6afeaddb818e348926c1d"
     },
     {
       "id": "example-02",
