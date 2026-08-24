@@ -1,5 +1,9 @@
 # ComfyUI GPT Image Latent Refiner
 
+<img src="assets/registry-banner.png" width="100%" alt="Abstract GPT Image Latent Refiner banner showing noisy tiled texture becoming clean flowing detail through a latent cube lattice">
+
+[![CI](https://github.com/AIEGOBOT/ComfyUI-GPT-Image-Latent-Refiner/actions/workflows/ci.yml/badge.svg)](https://github.com/AIEGOBOT/ComfyUI-GPT-Image-Latent-Refiner/actions/workflows/ci.yml)
+
 **English** | [한국어](README.ko.md)
 
 `GPT Image Latent Refiner` is a ComfyUI post-processing node—not an image

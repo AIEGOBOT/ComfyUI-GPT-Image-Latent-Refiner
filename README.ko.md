@@ -1,5 +1,9 @@
 # ComfyUI GPT Image Latent Refiner
 
+<img src="assets/registry-banner.png" width="100%" alt="반복 점과 타일 질감이 잠재 큐브 격자를 통과해 깨끗한 흐름으로 정리되는 GPT Image Latent Refiner 추상 배너">
+
+[![CI](https://github.com/AIEGOBOT/ComfyUI-GPT-Image-Latent-Refiner/actions/workflows/ci.yml/badge.svg)](https://github.com/AIEGOBOT/ComfyUI-GPT-Image-Latent-Refiner/actions/workflows/ci.yml)
+
 [English](README.md) | **한국어**
 
 `GPT Image Latent Refiner`는 이미지를 새로 생성하는 도구가 아니라, GPT Image 계열
