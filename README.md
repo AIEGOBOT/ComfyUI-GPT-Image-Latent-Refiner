@@ -180,6 +180,8 @@ workflow, not from the refiner node alone.
 The SDXL portrait and two cropped dossier details also include Image Comparer-style
 animations. Each GIF appears below its static comparison, holds on the input,
 reveals the processed result from left to right, and then holds on the final output.
+The SDXL example also includes a full-resolution H.264 MP4 generated directly from
+the original before/after images for Reddit and other high-quality previews.
 
 Common settings were refiner `device=auto`, refiner `tile_vae=true`, SeedVR2 7B FP16
 with `ema_vae_fp16.safetensors`, regular `VAEEncode`/`VAEDecode`, bicubic target
@@ -205,6 +207,8 @@ settings that differ by example are shown below.
 **Animated wipe**
 
 [![Animated photoreal portrait before and after](assets/examples/example-01-photoreal-portrait-wipe.gif)](assets/examples/example-01-photoreal-portrait-wipe.gif)
+
+[High-quality 1920×1078 MP4](assets/examples/example-01-photoreal-portrait-wipe-hq.mp4)
 
 ### Environment — Qwen
 
